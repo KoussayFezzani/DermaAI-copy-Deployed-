@@ -1,0 +1,441 @@
+{
+    "nav": {
+        "home": "Home",
+        "aiScanner": "AI Scanner",
+        "history": "History",
+        "about": "About",
+        "blog": "Blog",
+        "support": "FAQ",
+        "diseases": "Diseases",
+        "profile": "Profile",
+        "settings": "Settings",
+        "signIn": "Sign In",
+        "signOut": "Sign Out",
+        "getStarted": "Get Started",
+        "admin": "Admin"
+    },
+    "home": {
+        "hero": {
+            "kicker": "Neural Screening Protocol",
+            "title1": "Intelligent",
+            "title2": "Analysis",
+            "subtitle": "Experience the future of skin health with DermaAI. Get instant results powered by AI technology.",
+            "cta": "Start Analysis",
+            "learnMore": "Learn More"
+        },
+        "howItWorks": {
+            "title": "How DermaAI Works",
+            "step1": {
+                "title": "Upload Photo",
+                "description": "Securely upload a clear photo of the skin lesion."
+            },
+            "step2": {
+                "title": "AI Analysis",
+                "description": "Our AI system processes the image in seconds."
+            },
+            "step3": {
+                "title": "Get Results",
+                "description": "Receive instant results with clear information."
+            },
+            "step4": {
+                "title": "Clinical Review",
+                "description": "Consult with dermatologists for further action."
+            },
+            "subtitle": "Four Simple Steps to Clarity"
+        },
+        "stats": {
+            "totalScans": "Total Analyses",
+            "accuracy": "Detection Accuracy",
+            "users": "Active Users",
+            "uptime": "System Uptime",
+            "title": "Platform Statistics",
+            "scans": "Total Analyses",
+            "riskIdentified": "Risk Identified",
+            "platformStats": "Platform Statistics",
+            "realTimeStats": "Real-time statistics from our AI-powered skin analysis platform",
+            "mostCommon": "Most Common Detections",
+            "detectionsCount": "{{count}} detections",
+            "loading": "Loading statistics..."
+        },
+        "features": {
+            "ai": {
+                "title": "Neural Scan",
+                "desc": "Deep learning models trained on 10,000+ clinical cases for 92% diagnostic accuracy."
+            },
+            "privacy": {
+                "title": "Clinical Trust",
+                "desc": "Encrypted data handling ensures your medical privacy is never compromised."
+            },
+            "tracking": {
+                "title": "Live Tracking",
+                "desc": "Monitor lesion evolution over time with our automated history mapping tool."
+            }
+        },
+        "cta": {
+            "title": "Ready to verify your skin health?",
+            "subtitle": "Join the thousands of users leveraging AI for better health clarity every day.",
+            "button": "Create Free Account"
+        }
+    },
+    "scan": {
+        "title": "Skin",
+        "titleSpan": "Analysis.",
+        "subtitle": "Upload a photo of a skin lesion to get an instant analysis from our AI system.",
+        "upload": {
+            "title": "Upload Photo",
+            "disclaimer": "Medical Disclaimer",
+            "disclaimerText": "This system is an AI research tool and does not provide a formal medical diagnosis. High confidence scores do not replace professional dermatological examination. Always consult a doctor for skin concerns.",
+            "waitingTitle": "Waiting for Photo",
+            "waitingDesc": "Upload a photo on the left to start the analysis."
+        },
+        "results": {
+            "inferenceResult": "Inference Result",
+            "lowProb": "Low Probability",
+            "highProb": "High Probability",
+            "secondaryMatch": "Secondary match:",
+            "viewOriginal": "Original",
+            "viewHeatmap": "AI Heatmap",
+            "viewLabel": "{{view}} view",
+            "heatmapDesc": "Warm regions (red/yellow) indicate areas that most influenced the AI's classification.",
+            "originalDesc": "Original dermoscopic sample uploaded for analysis."
+        }
+    },
+    "diseases": {
+        "titleBadge": "Medical Encyclopedia",
+        "title": "Skin Diseases Encyclopedia",
+        "subtitle": "Learn about different types of skin lesions, their symptoms, and treatment options",
+        "search": "Search diseases...",
+        "filterAll": "All Diseases",
+        "filterMalignant": "Malignant",
+        "filterPreMalignant": "Pre-Malignant",
+        "filterBenign": "Benign",
+        "dangerLevel": "Danger Level",
+        "learnMore": "Learn More",
+        "description": "Description",
+        "symptoms": "Symptoms",
+        "identification": "Identification Tips",
+        "riskFactors": "Risk Factors",
+        "treatment": "Treatment",
+        "prevention": "Prevention",
+        "prevalence": "Prevalence",
+        "survivalRate": "Survival Rate",
+        "sources": "Medical Sources",
+        "abcdeRule": "ABCDE Rule for Melanoma"
+    },
+    "support": {
+        "titleBadge": "Help Center",
+        "title": "Support & FAQ",
+        "subtitle": "Find answers to common questions about DermaAI",
+        "faqTitle": "Frequently Asked Questions",
+        "contact": {
+            "title": "Contact Us",
+            "email": {
+                "title": "Email Support",
+                "description": "Get in touch with our support team"
+            },
+            "chat": {
+                "title": "Live Chat",
+                "description": "Chat with our AI assistant anytime",
+                "availability": "Available 24/7 on any page",
+                "headerTitle": "AI Assistant",
+                "headerStatus": "Online",
+                "initialMessage": "Hello! How can I help you with your skin health today?",
+                "placeholder": "Ask a question...",
+                "disclaimer": "Note: Not a medical diagnosis.",
+                "analysisComplete": "Analysis complete: {{diagnosis}} ({{confidence}}% confidence). Would you like to know more?",
+                "error": "Sorry, I couldn't connect. Please try again."
+            }
+        },
+        "questions": [
+            {
+                "question": "How accurate is the AI model?",
+                "answer": "Our AI model achieves 92% accuracy on validation data, which is comparable to dermatologists. However, it's important to note that this tool is for educational and screening purposes only and should not replace professional medical diagnosis."
+            },
+            {
+                "question": "Is my data secure and private?",
+                "answer": "Yes, absolutely. All data is encrypted in transit and at rest. We follow strict GDPR compliance and never share your medical information with third parties. Your uploaded images and scan results are stored securely and only accessible to you."
+            },
+            {
+                "question": "Can I use this tool for medical diagnosis?",
+                "answer": "No. While our AI provides accurate analysis, this tool is designed for educational and screening purposes only. You should always consult a qualified dermatologist for professional diagnosis, treatment recommendations, and medical advice."
+            },
+            {
+                "question": "What types of skin lesions can the AI detect?",
+                "answer": "The AI can identify 7 types of skin lesions: Melanoma, Basal Cell Carcinoma, Actinic Keratoses, Benign Keratosis-like lesions, Dermatofibroma, Melanocytic Nevi (moles), and Vascular Lesions."
+            },
+            {
+                "question": "How do I take a good photo for analysis?",
+                "answer": "For best results: 1) Use good natural lighting, 2) Hold the camera steady and close enough to fill the frame with the lesion, 3) Ensure the image is in focus, 4) Avoid shadows or glare, 5) Take the photo straight-on rather than at an angle."
+            },
+            {
+                "question": "What is Grad-CAM and why is it important?",
+                "answer": "Grad-CAM (Gradient-weighted Class Activation Mapping) is a visualization technique that shows which parts of the image the AI focused on when making its prediction. This provides transparency and helps you understand the AI's decision-making process."
+            },
+            {
+                "question": "How long does the analysis take?",
+                "answer": "The AI analysis typically takes 2-5 seconds once you upload an image. The speed may vary depending on your internet connection and server load."
+            },
+            {
+                "question": "Can I save my scan history?",
+                "answer": "Yes! When you create an account and sign in, all your scans are automatically saved to your history. You can access them anytime from the History page to track changes over time."
+            },
+            {
+                "question": "What should I do if the AI detects something concerning?",
+                "answer": "If the AI detects a potentially malignant lesion (like Melanoma or Basal Cell Carcinoma) with high confidence, you should schedule an appointment with a dermatologist as soon as possible. Early detection is crucial for successful treatment."
+            },
+            {
+                "question": "Is the service free?",
+                "answer": "Yes, DermaAI is currently free to use. We believe in making advanced skin cancer detection accessible to everyone."
+            },
+            {
+                "question": "What devices and browsers are supported?",
+                "answer": "DermaAI works on all modern web browsers (Chrome, Firefox, Safari, Edge) on desktop, tablet, and mobile devices. For the best experience, we recommend using the latest version of your browser."
+            },
+            {
+                "question": "Can I use the chatbot without uploading an image?",
+                "answer": "Yes! Our AI medical assistant can answer general questions about skin health, lesion types, and prevention tips even without a scan. However, for personalized advice based on your specific case, we recommend uploading an image first."
+            }
+        ]
+    },
+    "about": {
+        "hero": {
+            "title": "Precision AI for",
+            "titleItalic": "Global Dermatology.",
+            "subtitle": "DermaAI was founded on the principle that medical-grade skin analysis should be instantaneous, accessible, and transparent. We leverage state-of-the-art neural networks to bridge the gap between patients and preventative care."
+        },
+        "values": {
+            "v1": {
+                "title": "Patient First",
+                "desc": "Our models are tuned for high sensitivity to ensure early detection where it matters most."
+            },
+            "v2": {
+                "title": "Universal Access",
+                "desc": "Available 24/7 across the globe, providing clinical-level insights regardless of geography."
+            },
+            "v3": {
+                "title": "Scientific Rigor",
+                "desc": "Trained and validated against globally recognized datasets including HAM10000 and ISIC."
+            }
+        },
+        "team": {
+            "title": "The Visionary Core",
+            "member1": {
+                "role": "Founder & Lead Engineer",
+                "quote": "Building tools that empower people to take charge of their health through the lens of artificial intelligence."
+            }
+        },
+        "cta": {
+            "title": "Ready to begin your journey?",
+            "button": "Launch Clinical Scan"
+        }
+    },
+    "auth": {
+        "login": {
+            "titleStart": "Welcome",
+            "titleEnd": "Back.",
+            "subtitle": "Log in to your account.",
+            "email": "Email Address",
+            "emailPlaceholder": "Enter your email",
+            "password": "Password",
+            "button": "Log In",
+            "noAccount": "Don't have an account?",
+            "signUp": "Sign Up"
+        },
+        "signup": {
+            "titleStart": "Create",
+            "titleEnd": "Account.",
+            "subtitle": "Join the DermaAI community for free.",
+            "username": "Full Name",
+            "usernamePlaceholder": "johndoe",
+            "email": "E-Mail Address",
+            "emailPlaceholder": "Enter your email",
+            "password": "Password",
+            "confirmPassword": "Confirm Password",
+            "button": "Create Account",
+            "haveAccount": "Already have an account?",
+            "signIn": "Log In",
+            "errors": {
+                "passwordsDontMatch": "Passwords don't match"
+            }
+        }
+    },
+    "profile": {
+        "title": "Profile Settings",
+        "personalInfo": "Personal Info",
+        "personalInfoDesc": "Manage your account information",
+        "security": "Security",
+        "securityDesc": "Manage your email and password",
+        "settings": "Preferences",
+        "changePassword": "Change Password",
+        "save": "Save Changes",
+        "cancel": "Cancel"
+    },
+    "history": {
+        "title": "Scan History",
+        "subtitle": "View your previous scans",
+        "date": "Date",
+        "diagnosis": "Diagnosis",
+        "confidence": "Confidence",
+        "viewDetails": "View Details",
+        "noHistory": "No scan history yet",
+        "noRecordsFound": "No records found",
+        "noRecordsDesc": "Your analysis history will appear here once you've completed a scan.",
+        "viewSequence": "View Details",
+        "loadingArchives": "Loading Archives",
+        "clinicalRecord": "Clinical Record",
+        "secondaryMatch": "Secondary Match",
+        "exportReport": "Export Medical Report",
+        "generating": "Generating PDF...",
+        "filterAll": "All Scans",
+        "filterHigh": "High Risk",
+        "filterMedium": "Medium Risk",
+        "filterLow": "Low Risk",
+        "pdf": {
+            "title": "DermaAI Medical Scan Report",
+            "subtitle": "AI-Powered Skin Lesion Analysis",
+            "scanId": "Scan ID",
+            "scanDate": "Scan Date",
+            "generatedOn": "Generated on",
+            "primaryDiagnosis": "Primary Diagnosis",
+            "secondaryDiagnosis": "Secondary Diagnosis",
+            "confidenceScore": "Confidence Score",
+            "clinicalDetails": "Clinical Summary",
+            "dangerLevel": "Clinical Risk Level",
+            "analysisResults": "Analysis Results",
+            "lesionImage": "Lesion Image",
+            "disclaimer": "MEDICAL DISCLAIMER",
+            "disclaimerText": "This report is generated by an AI system for educational and screening purposes only. It does NOT constitute a medical diagnosis and should NOT replace professional medical advice. Always consult a qualified dermatologist for diagnosis and treatment.",
+            "poweredBy": "Powered by DermaAI — dermaai.app"
+        }
+    },
+    "footer": {
+        "description": "Pioneering the future of dermatological analysis through advanced artificial intelligence. Empowering early detection for better health outcomes.",
+        "platform": "Platform",
+        "links": {
+            "scan": "Scan Now",
+            "dashboard": "Dashboard",
+            "blog": "Blog",
+            "about": "About Us"
+        },
+        "legal": "Legal",
+        "legalLinks": {
+            "privacy": "Privacy Policy",
+            "terms": "Terms of Service",
+            "cookies": "Cookie Policy",
+            "disclaimer": "Disclaimer"
+        },
+        "rights": "All rights reserved.",
+        "madeWith": "Made with",
+        "forHealth": "for better health"
+    },
+    "common": {
+        "loading": "Loading...",
+        "error": "Error",
+        "success": "Success",
+        "close": "Close",
+        "back": "Back",
+        "next": "Next",
+        "previous": "Previous",
+        "submit": "Submit",
+        "cancel": "Cancel",
+        "save": "Save",
+        "delete": "Delete",
+        "edit": "Edit",
+        "view": "View",
+        "high": "High",
+        "medium": "Medium",
+        "low": "Low"
+    },
+    "banner": {
+        "disclaimer": "Medical Disclaimer: This AI tool is for educational and screening purposes only. It does not replace professional medical advice. Always consult a dermatologist for diagnosis."
+    },
+    "legal": {
+        "privacy": {
+            "title": "Privacy Policy",
+            "content": "At DermaAI, we prioritize your privacy. We do not share your personal health information with third parties without your consent. All data is encrypted..."
+        },
+        "terms": {
+            "title": "Terms of Service",
+            "content": "By using DermaAI, you agree that this tool is for informational purposes only and not a medical device..."
+        },
+        "cookies": {
+            "title": "Cookie Policy",
+            "content": "We use cookies to improve your experience and analyze site traffic..."
+        },
+        "disclaimer": {
+            "title": "Medical Disclaimer",
+            "content": "DermaAI uses artificial intelligence to analyze skin lesions. While we strive for accuracy, AI predictions can be incorrect. This tool is NOT intended to diagnose, treat, cure, or prevent any disease.\n\nALWAYS seek the advice of your physician or other qualified health provider with any questions you may have regarding a medical condition.\n\nIf you think you may have a medical emergency, call your doctor or emergency services immediately.",
+            "warning": "This AI tool is NOT a substitute for professional medical advice, diagnosis, or treatment."
+        },
+        "importantNotice": "Important Notice"
+    },
+    "blog": {
+        "title": "Medical Updates.",
+        "subtitle": "Stay informed with the latest breakthroughs in clinical dermatology.",
+        "readMore": "Read Full Article",
+        "page": "Page {{current}} of {{total}}",
+        "recently": "Recently"
+    },
+    "admin": {
+        "nav": {
+            "mainMenu": "Main Menu",
+            "preferences": "Preferences",
+            "last7Days": "Last 7 days"
+        },
+        "stats": {
+            "scans": "Total Analyses",
+            "users": "Registered Users",
+            "active": "Active (24 h)",
+            "status": "Model Status"
+        },
+        "overview": {
+            "weeklyScans": "Weekly Scans",
+            "weeklyScansDesc": "Analyses over the last 7 days",
+            "recentActivity": "Recent Activity",
+            "noActivity": "No recent activity"
+        },
+        "analytics": {
+            "diagnosisDist": "Diagnosis Distribution",
+            "diagnosisDistDesc": "Breakdown of all recorded diagnoses",
+            "scanTrend": "Scan Volume Trend",
+            "scanTrendDesc": "Daily scan count over the last week"
+        },
+        "systems": {
+            "health": "System Health",
+            "healthDesc": "Real-time status of all platform services",
+            "kerasLoaded": "Keras model loaded",
+            "modelNotFound": "Model file not found",
+            "atlasSynced": "Atlas cluster synced",
+            "connFailed": "Connection failed",
+            "online": "Online",
+            "loaded": "Loaded",
+            "notFound": "Not Found",
+            "connected": "Connected",
+            "disconnected": "Disconnected",
+            "operational": "Operational",
+            "active": "Active"
+        },
+        "users": {
+            "directory": "User Directory",
+            "registeredAccounts": "{{count}} registered accounts",
+            "search": "Search users…",
+            "colUser": "User",
+            "colEmail": "Email",
+            "colRole": "Role",
+            "colJoined": "Joined",
+            "colActions": "Actions",
+            "noUsers": "No users found",
+            "page": "Page {{current}} of {{total}}"
+        },
+        "exports": {
+            "title": "Data Exports",
+            "desc": "Download platform data for backup or research purposes",
+            "backupTitle": "Full Database Backup",
+            "backupDesc": "All users and scan history as a timestamped JSON archive.",
+            "backupBtn": "Download Backup",
+            "researchTitle": "Anonymized Research Export",
+            "researchDesc": "Scan history with all personal identifiers removed.",
+            "researchBtn": "Download Export"
+        }
+    }
+}

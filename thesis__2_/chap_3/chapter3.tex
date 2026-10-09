@@ -1,0 +1,345 @@
+\setlength{\emergencystretch}{3em}
+
+% ============================================================
+%  CHAPTER 3 — SPRINT 1
+% ============================================================
+
+\chapter[Chapter 3: Sprint 1 — Authentication \& Access Management]{Chapter 3: Sprint 1 — Authentication\\[12pt]
+         \& Access Management}
+\begin{center}
+	\includegraphics[width=0.85\textwidth, keepaspectratio]{chap3_cover.png}
+\end{center}
+
+\newpage
+
+% ============================================================
+\section{Introduction}
+% ============================================================
+This chapter details the realization of the first development sprint, focusing on establishing the platform's foundational identity and access layer. It covers the implementation of a secure JWT-based authentication system, user profile management, and interface localization. Additionally, the development of a dynamic medical news feed via web scraping is presented.
+
+% ============================================================
+\section{Task Identification}
+% ============================================================
+This section identifies the specific expected objectives for this sprint and breaks them down into actionable development tasks.
+
+% ────────────────────────────────────────────────────────────
+\subsection{Expected Objectives}
+% ────────────────────────────────────────────────────────────
+During this sprint, the following core objectives were established:
+\begin{itemize}
+    \item Implement a secure JWT-based authentication system (Login, Registration, Password Recovery).
+    \item Develop the user profile management interface.
+    \item Integrate a global language switcher supporting English, French, and Arabic.
+    \item Develop a web-scraping service to dynamically fetch dermatological news for guests.
+\end{itemize}
+
+% ············································
+\subsubsection{Modeling the Identity Management Process}
+% ············································
+To illustrate the logical flow of user authentication, Figure~\ref{fig:sprint1_activity} presents the activity diagram modeling the login and password recovery process.
+
+\begin{figure}[H]
+    \centering
+    \optionalimage[\textwidth]{chap_3/images/activiy diagram sp1.png}{Activity Diagram for Authentication}
+    \caption{\textit{Activity Diagram for Authentication and Identity Management}}
+    \label{fig:sprint1_activity}
+\end{figure}
+
+% ────────────────────────────────────────────────────────────
+\subsection{Sprint Backlog}
+% ────────────────────────────────────────────────────────────
+The tasks associated with Sprint 1 are documented in Table~\ref{tab:sprint1_backlog}.
+
+\begin{table}[H]
+    \centering
+    \small
+    \renewcommand{\arraystretch}{1.2}
+    \begin{tabular}{|>{\centering\arraybackslash}p{0.8cm}|>{\raggedright\arraybackslash}p{4.5cm}|>{\raggedright\arraybackslash}p{6.8cm}|}
+    \hline
+    \rowcolor[HTML]{1F3864}
+    {\color{white}\textbf{ID}} & {\color{white}\textbf{User Story}} & {\color{white}\textbf{Task Description}} \\
+    \hline
+    \textbf{1} & As a guest, I want to create an account or log in securely. & Design frontend Login and Signup interfaces. \\
+    \cline{3-3}
+     & & Develop the backend authentication API with JWT generation. \\
+    \hline
+    \textbf{2} & As a user, I want to recover my password and update my profile. & Implement email recovery service (mailer.py). \\
+    \cline{3-3}
+     & & Develop the profile UI and update endpoints. \\
+    \hline
+    \textbf{3} & As a user, I want to switch the interface language. & Integrate i18next and configure LTR/RTL layouts. \\
+    \hline
+    \textbf{4} & As a guest, I want to read up-to-date dermatological news. & Develop BeautifulSoup scraper for medical news sources. \\
+    \cline{3-3}
+     & & Create the Blog UI to display fetched articles. \\
+    \hline
+    \end{tabular}
+    \caption{\textit{Sprint 1 Backlog}}
+    \label{tab:sprint1_backlog}
+\end{table}
+
+% ============================================================
+\section{Functional Specifications}
+% ============================================================
+To ensure a clear understanding of the system's requirements for this sprint, UML Use-Cases diagrams were utilized, accompanied by detailed textual descriptions.
+
+% ────────────────────────────────────────────────────────────
+\subsection{Use-Cases Diagram}
+% ────────────────────────────────────────────────────────────
+Figure~\ref{fig:sprint1_usecase} illustrates the specific use cases for Sprint 1, involving both the Guest and User actors.
+
+\begin{figure}[H]
+    \centering
+    \optionalimage[0.70\textwidth]{chap_3/images/use case sp1.png}{Sprint 1 Use-Cases Diagram}
+    \caption{\textit{Use-Cases Diagram for Sprint 1}}
+    \label{fig:sprint1_usecase}
+\end{figure}
+
+% ────────────────────────────────────────────────────────────
+\subsection{Textual Descriptions of Use Cases}
+% ────────────────────────────────────────────────────────────
+
+% ············································
+\subsubsection{Authenticate}
+% ············································
+\begin{table}[H]
+\centering
+\footnotesize
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{|p{3cm}|p{11.5cm}|}
+\hline
+\rowcolor[HTML]{1F3864}
+{\color{white}\textbf{Use Case}} & {\color{white}\textbf{Authenticate}} \\
+\hline
+\textbf{Actor} & Guest \\
+\hline
+\textbf{Precondition} & The guest is not logged in. \\
+\hline
+\textbf{Postcondition} & The guest is authenticated and redirected to the application. \\
+\hline
+\textbf{Nominal Scenario} & 
+1. The guest enters their email and password.\newline
+2. The system verifies the credentials.\newline
+3. A JWT token is generated and returned.\newline
+4. The user session starts. \\
+\hline
+\textbf{Alternative} & 
+If credentials are invalid, the system displays an error message and denies access. \\
+\hline
+\end{tabular}
+\caption{\textit{Textual Description: Authenticate}}
+\end{table}
+
+% ············································
+\subsubsection{Consult Medical News}
+% ············································
+\begin{table}[H]
+\centering
+\footnotesize
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{|p{3cm}|p{11.5cm}|}
+\hline
+\rowcolor[HTML]{1F3864}
+{\color{white}\textbf{Use Case}} & {\color{white}\textbf{Consult Medical News}} \\
+\hline
+\textbf{Actor} & Guest, User \\
+\hline
+\textbf{Precondition} & The platform is connected to the internet. \\
+\hline
+\textbf{Postcondition} & The latest dermatological news is displayed. \\
+\hline
+\textbf{Nominal Scenario} & 
+1. The user navigates to the Blog section.\newline
+2. The backend dynamically scrapes active medical sources.\newline
+3. The articles are parsed, cached, and displayed to the user. \\
+\hline
+\textbf{Alternative} & 
+If the external news sites are unreachable, the system displays an empty state or a network error message. \\
+\hline
+\end{tabular}
+\caption{\textit{Textual Description: Consult Medical News}}
+\end{table}
+
+% ============================================================
+\section{Design}
+% ============================================================
+This section details the static structure and dynamic behavior of the system elements implemented in this sprint.
+
+% ────────────────────────────────────────────────────────────
+\subsection{Class Diagram}
+% ────────────────────────────────────────────────────────────
+Figure~\ref{fig:sprint1_class} shows the conceptual class diagram for the entities managed during this sprint. Note that News Articles are dynamic and not stored persistently, unlike User profiles.
+
+\begin{figure}[H]
+    \centering
+    \optionalimage[0.55\textwidth]{chap_3/images/class sp1.png}{Sprint 1 Class Diagram}
+    \caption{\textit{Conceptual Class Diagram for Sprint 1}}
+    \label{fig:sprint1_class}
+\end{figure}
+
+% ············································
+\subsubsection{Data Dictionary}
+% ············································
+Table~\ref{tab:sprint1_dict} details the internal properties of the MongoDB \texttt{users} collection, governed by the Pydantic schemas.
+
+\begin{table}[H]
+\centering
+\small
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{|p{2.5cm}|p{3.5cm}|p{8.5cm}|}
+\hline
+\rowcolor[HTML]{1F3864}
+{\color{white}\textbf{Entity}} & {\color{white}\textbf{Attribute}} & {\color{white}\textbf{Description}} \\
+\hline
+\textbf{User} & \_id & Unique Object Identifier generated by MongoDB. \\
+\cline{2-3}
+& email & The user's email address used for authentication. \\
+\cline{2-3}
+& password & The bcrypt-hashed password string. \\
+\cline{2-3}
+& role & Access level indicator (e.g., 'user', 'admin'). \\
+\cline{2-3}
+& preferences & Object containing UI preferences (darkMode, language). \\
+\cline{2-3}
+& last\_login & Timestamp of the user's most recent session. \\
+\cline{2-3}
+& created\_at & Timestamp indicating when the account was registered. \\
+\hline
+\end{tabular}
+\caption{\textit{Data Dictionary for Sprint 1}}
+\label{tab:sprint1_dict}
+\end{table}
+
+% ────────────────────────────────────────────────────────────
+\subsection{Sequence Diagrams}
+% ────────────────────────────────────────────────────────────
+
+% ············································
+\subsubsection{Authentication Sequence}
+% ············································
+Figure~\ref{fig:sprint1_seq_auth} details the interactions between the React frontend, the Flask API, and the MongoDB database during a login attempt.
+
+\begin{figure}[H]
+    \centering
+    \optionalimage[0.85\textwidth]{chap_3/images/seq sp1 (1).png}{Authentication Sequence Diagram}
+    \caption{\textit{Sequence Diagram: Authentication}}
+    \label{fig:sprint1_seq_auth}
+\end{figure}
+
+% ············································
+\subsubsection{Web Scraping Sequence}
+% ············································
+Figure~\ref{fig:sprint1_seq_news} illustrates how the backend dynamically fetches and caches news from external sources when requested by the user.
+
+\begin{figure}[H]
+    \centering
+    \optionalimage[0.85\textwidth]{chap_3/images/seq sp1 (2).png}{Web Scraping Sequence Diagram}
+    \caption{\textit{Sequence Diagram: Consult Medical News}}
+    \label{fig:sprint1_seq_news}
+\end{figure}
+
+% ============================================================
+\section{Web Scraping Implementation}
+% ============================================================
+To keep users informed about the latest advancements in dermatology and skin cancer research, a dynamic web scraping service was developed using Python's \texttt{BeautifulSoup4} and \texttt{requests} libraries. Instead of relying on static content or paid APIs, the platform actively extracts real-time articles from two highly reputable medical sources: \textit{ScienceDaily} and \textit{Medical News Today}.
+
+% ────────────────────────────────────────────────────────────
+\subsection{Data Extraction Strategy}
+% ────────────────────────────────────────────────────────────
+The extraction logic is encapsulated within dedicated functions for each source. Each function sends an HTTP GET request to the target URLs using custom \texttt{User-Agent} headers to avoid being blocked by anti-bot mechanisms. The HTML DOM is then parsed using \texttt{html.parser}. 
+
+For \textit{ScienceDaily}, the script targets specific \texttt{div} classes (\texttt{latest-head} and \texttt{latest-summary}). For \textit{Medical News Today}, which uses a dynamic class structure, the script relies on CSS selectors targeting specific list items containing article links. For both sources, the system successfully extracts the article's title, publication date, a brief summary, the source URL, and an associated thumbnail image (if available).
+
+% ────────────────────────────────────────────────────────────
+\subsection{Caching and Performance Optimization}
+% ────────────────────────────────────────────────────────────
+Web scraping is computationally expensive and depends heavily on external network speeds. Running the scraping logic on every user request would result in severe performance bottlenecks and risk triggering IP bans from the target websites.
+
+To mitigate this, a global caching mechanism was implemented. The backend maintains an in-memory dictionary (\texttt{\_news\_cache}) containing the fetched articles and a \texttt{last\_fetched} timestamp. A \textbf{Time-To-Live (TTL)} of 3600 seconds (1 hour) was configured. When the \texttt{/api/news} endpoint is called:
+\begin{enumerate}
+    \item The system checks if the cache is empty or if the TTL has expired.
+    \item If expired, the scraper fetches fresh articles from both sources, shuffles them randomly to present a unified feed, updates the cache, and records the new timestamp.
+    \item If valid, the system instantly returns the cached data.
+\end{enumerate}
+Finally, the endpoint implements server-side pagination, accepting \texttt{page} and \texttt{limit} parameters. This ensures the frontend only loads a specific number of articles at a time, guaranteeing optimal rendering performance on the client side.
+
+% ============================================================
+\section{Development}
+% ============================================================
+This section presents the final deliverables of the sprint, showcasing the functional user interfaces and validating the backend logic via API testing.
+
+% ────────────────────────────────────────────────────────────
+\subsection{User Interfaces}
+% ────────────────────────────────────────────────────────────
+
+\paragraph{Login and Registration Interfaces}
+The authentication interfaces were designed to be clean and intuitive, following modern aesthetic guidelines. The forms validate user input natively before transmitting data to the server. Figure~\ref{fig:ui_login} presents the login and registration screens.
+
+\begin{figure}[H]
+    \centering
+    \optionalimage[0.60\textwidth]{chap_3/images/ui_login.png}{Login Interface}
+    \caption{\textit{Login and Registration Interfaces}}
+    \label{fig:ui_login}
+\end{figure}
+
+\paragraph{Profile Management Interface}
+The profile interface enables users to view their account details, change passwords, and manage preferences, maintaining visual consistency with the platform. Figure~\ref{fig:ui_profile} shows this interface.
+
+\begin{figure}[H]
+    \centering
+    \optionalimage[0.60\textwidth]{chap_3/images/ui_profile.png}{Profile Interface}
+    \caption{\textit{User Profile Management Interface}}
+    \label{fig:ui_profile}
+\end{figure}
+
+\paragraph{Medical News (Blog) Interface}
+The Blog page displays the dynamically scraped articles in a responsive grid layout. The interface includes pagination and language support, allowing guests to stay informed. Figure~\ref{fig:ui_blog} shows the medical news interface.
+
+\begin{figure}[H]
+    \centering
+    \optionalimage[0.85\textwidth]{chap_3/images/ui_blog.png}{Blog Interface}
+    \caption{\textit{Dynamic Medical News Interface}}
+    \label{fig:ui_blog}
+\end{figure}
+
+% ────────────────────────────────────────────────────────────
+\subsection{API Testing}
+% ────────────────────────────────────────────────────────────
+API testing was conducted using Postman to validate the robustness of the backend services.
+
+\paragraph{Authentication Endpoint Validation}
+The \texttt{/api/auth/login} route was tested under nominal and alternative conditions. Supplying valid credentials successfully returns a JSON response containing the generated JWT access token and user role (Status 200 OK). Supplying incorrect credentials returns a secure ``Invalid credentials'' message without revealing whether the email exists (Status 401 Unauthorized). Figure~\ref{fig:api_login} illustrates the Postman test results.
+
+\begin{figure}[H]
+    \centering
+    \optionalimage[0.85\textwidth]{chap_3/images/api_login.png}{Postman Login Test}
+    \caption{\textit{Postman Test: Authentication API Validation}}
+    \label{fig:api_login}
+\end{figure}
+
+\paragraph{News Web Scraper Validation}
+The \texttt{/api/news} endpoint was verified to ensure the web scraper accurately extracts and formats data. The endpoint successfully returns a structured JSON payload containing the article titles, summaries, and source URLs, proving that the BeautifulSoup integration functions correctly. Figure~\ref{fig:api_news} shows the Postman response for the news endpoint.
+
+\begin{figure}[H]
+    \centering
+    \optionalimage[0.85\textwidth]{chap_3/images/api_news.png}{Postman News Test}
+    \caption{\textit{Postman Test: News Scraper API Validation}}
+    \label{fig:api_news}
+\end{figure}
+
+% ============================================================
+\section{Progress Tracking}
+% ============================================================
+To ensure agile delivery, task progress was rigorously tracked using Trello Kanban boards. Figure~\ref{fig:trello_sprint1} displays the state of the sprint board upon the completion of Sprint 1 tasks, visually confirming the realization of the planned backlog.
+
+\begin{figure}[H]
+    \centering
+    \optionalimage[0.40\textwidth]{chap_3/images/trello_sprint1.png}{Trello Sprint 1}
+    \caption{\textit{Trello Board at the End of Sprint 1}}
+    \label{fig:trello_sprint1}
+\end{figure}
+
+% ============================================================
+\section{Conclusion}
+% ============================================================
+This chapter successfully concluded Sprint 1 by establishing the core security and content delivery architecture of DermaAI. Secure authentication, multilingual support, and a dynamic news scraper were fully developed and validated. With the identity layer in place, the platform is now ready for the integration of its core AI-powered diagnostic engine in the next phase.

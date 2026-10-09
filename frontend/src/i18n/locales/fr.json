@@ -1,0 +1,428 @@
+{
+    "nav": {
+        "home": "Accueil",
+        "aiScanner": "Scanner IA",
+        "history": "Historique",
+        "about": "À propos",
+        "blog": "Blog",
+        "support": "Support",
+        "diseases": "Maladies",
+        "profile": "Profil",
+        "settings": "Paramètres",
+        "signIn": "Se connecter",
+        "signOut": "Se déconnecter",
+        "getStarted": "Commencer",
+        "admin": "Admin"
+    },
+    "home": {
+        "hero": {
+            "badge": "Analyse Dermatologique Avancée",
+            "title": "Connaissez votre peau.",
+            "titleScience": "Faites confiance à la science.",
+            "subtitle": "Découvrez l'avenir de la santé de la peau avec DermaAI. Obtenez des résultats instantanés grâce à l'IA.",
+            "cta": "Démarrer l'analyse",
+            "learnMore": "En savoir plus"
+        },
+        "howItWorks": {
+            "title": "Comment fonctionne DermaAI",
+            "step1": {
+                "title": "Télécharger la photo",
+                "desc": "Téléchargez en toute sécurité une photo claire de la lésion cutanée."
+            },
+            "step2": {
+                "title": "Analyse IA",
+                "desc": "Notre système d'IA traite l'image en quelques secondes."
+            },
+            "step3": {
+                "title": "Obtenir les résultats",
+                "desc": "Recevez des résultats instantanés avec des informations claires."
+            }
+        },
+        "stats": {
+            "totalScans": "Analyses totales",
+            "accuracy": "Précision de détection",
+            "users": "Utilisateurs actifs",
+            "uptime": "Disponibilité du système"
+        },
+        "features": {
+            "privacy": {
+                "title": "Confidentialité de qualité médicale",
+                "desc": "Vos données sont chiffrées et traitées selon les normes de confidentialité les plus strictes."
+            },
+            "explainable": {
+                "title": "IA explicable",
+                "desc": "Nous ne donnons pas seulement un résultat ; notre technologie Grad-CAM vous montre exactement ce que l'IA a vu."
+            },
+            "insight": {
+                "title": "Aperçu faisant autorité",
+                "desc": "Formé sur les jeux de données HAM10000 et ISIC pour une précision à la pointe de l'industrie."
+            }
+        },
+        "cta": {
+            "title": "Prêt à vérifier la santé de votre peau ?",
+            "subtitle": "Rejoignez les milliers d'utilisateurs qui profitent chaque jour de l'IA pour plus de clarté sur leur santé.",
+            "button": "Créer un compte gratuit"
+        }
+    },
+    "scan": {
+        "title": "Analyse",
+        "titleSpan": "Cutanée.",
+        "subtitle": "Téléchargez une photo d'une lésion cutanée pour obtenir une analyse instantanée de notre système d'IA.",
+        "upload": {
+            "title": "Télécharger la photo",
+            "disclaimer": "Avis médical",
+            "disclaimerText": "Ce système est un outil de recherche par IA et ne fournit pas de diagnostic médical formel. Les scores de confiance élevés ne remplacent pas un examen dermatologique professionnel. Consultez toujours un médecin pour tout problème de peau.",
+            "waitingTitle": "En attente de photo",
+            "waitingDesc": "Téléchargez une photo à gauche pour commencer l'analyse."
+        },
+        "results": {
+            "inferenceResult": "Résultat de l'inférence",
+            "lowProb": "Faible probabilité",
+            "highProb": "Haute probabilité",
+            "secondaryMatch": "Match secondaire :",
+            "viewOriginal": "Original",
+            "viewHeatmap": "Carte thermique IA",
+            "viewLabel": "Vue {{view}}",
+            "heatmapDesc": "Les régions chaudes (rouge/jaune) indiquent les zones qui ont le plus influencé la classification de l'IA.",
+            "originalDesc": "Échantillon dermoscopique original téléchargé pour l'analyse."
+        }
+    },
+    "diseases": {
+        "titleBadge": "Encyclopédie Médicale",
+        "title": "Encyclopédie des Maladies de la Peau",
+        "subtitle": "Découvrez les différents types de lésions cutanées, leurs symptômes et les options de traitement",
+        "search": "Rechercher des maladies...",
+        "filterAll": "Toutes les Maladies",
+        "filterMalignant": "Malignes",
+        "filterPreMalignant": "Pré-Malignes",
+        "filterBenign": "Bénignes",
+        "dangerLevel": "Niveau de Danger",
+        "learnMore": "En savoir plus",
+        "description": "Description",
+        "symptoms": "Symptômes",
+        "identification": "Conseils d'Identification",
+        "riskFactors": "Facteurs de Risque",
+        "treatment": "Traitement",
+        "prevention": "Prévention",
+        "prevalence": "Prévalence",
+        "survivalRate": "Taux de Survie",
+        "sources": "Sources Médicales",
+        "abcdeRule": "Règle ABCDE pour le Mélanome"
+    },
+    "support": {
+        "titleBadge": "Centre d'Aide",
+        "title": "Support & FAQ",
+        "subtitle": "Trouvez des réponses aux questions courantes sur DermaAI",
+        "faqTitle": "Questions Fréquemment Posées",
+        "contact": {
+            "title": "Contactez-nous",
+            "email": {
+                "title": "Support Email",
+                "description": "Contactez notre équipe de support"
+            },
+            "chat": {
+                "title": "Chat en Direct",
+                "description": "Discutez avec notre assistant IA à tout moment",
+                "availability": "Disponible 24/7 sur n'importe quelle page",
+                "headerTitle": "Assistant IA",
+                "headerStatus": "En ligne",
+                "initialMessage": "Bonjour ! Comment puis-je vous aider avec la santé de votre peau aujourd'hui ?",
+                "placeholder": "Posez une question...",
+                "disclaimer": "Note : Pas un diagnostic médical.",
+                "analysisComplete": "Analyse terminée : {{diagnosis}} ({{confidence}}% de confiance). Voulez-vous en savoir plus ?",
+                "error": "Désolé, je n'ai pas pu me connecter. Veuillez réessayer."
+            }
+        },
+        "questions": [
+            {
+                "question": "Quelle est la précision du modèle IA ?",
+                "answer": "Notre modèle IA atteint 92% de précision sur les données de validation, comparable aux dermatologues. Cependant, il est important de noter que cet outil est à des fins éducatives et de dépistage uniquement et ne doit pas remplacer un diagnostic médical professionnel."
+            },
+            {
+                "question": "Mes données sont-elles sécurisées et privées ?",
+                "answer": "Oui, absolument. Toutes les données sont chiffrées en transit et au repos. Nous respectons strictement le RGPD et ne partageons jamais vos informations médicales avec des tiers. Vos images téléchargées et résultats sont stockés en toute sécurité et accessibles uniquement par vous."
+            },
+            {
+                "question": "Puis-je utiliser cet outil pour un diagnostic médical ?",
+                "answer": "Non. Bien que notre IA fournisse une analyse précise, cet outil est conçu pour des fins éducatives et de dépistage uniquement. Vous devez toujours consulter un dermatologue qualifié pour un diagnostic professionnel, des recommandations de traitement et des conseils médicaux."
+            },
+            {
+                "question": "Quels types de lésions cutanées l'IA peut-elle détecter ?",
+                "answer": "L'IA peut identifier 7 types de lésions cutanées : Mélanome, Carcinome Basocellulaire, Kératoses Actiniques, Kératose Bénigne, Dermatofibrome, Naevus Mélanocytaires (grains de beauté) et Lésions Vasculaires."
+            },
+            {
+                "question": "Comment prendre une bonne photo pour l'analyse ?",
+                "answer": "Pour de meilleurs résultats : 1) Utilisez un bon éclairage naturel, 2) Tenez l'appareil stable et assez près pour remplir le cadre avec la lésion, 3) Assurez-vous que l'image est nette, 4) Évitez les ombres ou les reflets, 5) Prenez la photo de face plutôt que sous un angle."
+            },
+            {
+                "question": "Qu'est-ce que Grad-CAM et pourquoi est-ce important ?",
+                "answer": "Grad-CAM (Gradient-weighted Class Activation Mapping) est une technique de visualisation qui montre quelles parties de l'image l'IA a examinées pour faire sa prédiction. Cela offre de la transparence et vous aide à comprendre le processus de décision de l'IA."
+            },
+            {
+                "question": "Combien de temps prend l'analyse ?",
+                "answer": "L'analyse IA prend généralement 2 à 5 secondes une fois l'image téléchargée. La vitesse peut varier en fonction de votre connexion internet et de la charge du serveur."
+            },
+            {
+                "question": "Puis-je enregistrer mon historique de scan ?",
+                "answer": "Oui ! Lorsque vous créez un compte et vous connectez, tous vos scans sont automatiquement enregistrés dans votre historique. Vous pouvez y accéder à tout moment depuis la page Historique pour suivre les changements au fil du temps."
+            },
+            {
+                "question": "Que dois-je faire si l'IA détecte quelque chose d'inquiétant ?",
+                "answer": "Si l'IA détecte une lésion potentiellement maligne (comme un Mélanome ou un Carcinome Basocellulaire) avec une confiance élevée, vous devez prendre rendez-vous avec un dermatologue dès que possible. La détection précoce est cruciale pour un traitement réussi."
+            },
+            {
+                "question": "Le service est-il gratuit ?",
+                "answer": "Oui, DermaAI est actuellement gratuit. Nous croyons en l'accessibilité de la détection avancée du cancer de la peau pour tous."
+            },
+            {
+                "question": "Quels appareils et navigateurs sont supportés ?",
+                "answer": "DermaAI fonctionne sur tous les navigateurs web modernes (Chrome, Firefox, Safari, Edge) sur ordinateur, tablette et mobile. Pour la meilleure expérience, nous recommandons d'utiliser la dernière version de votre navigateur."
+            },
+            {
+                "question": "Puis-je utiliser le chatbot sans télécharger d'image ?",
+                "answer": "Oui ! Notre assistant médical IA peut répondre à des questions générales sur la santé de la peau, les types de lésions et les conseils de prévention même sans scan. Cependant, pour des conseils personnalisés basés sur votre cas spécifique, nous recommandons de télécharger une image d'abord."
+            }
+        ]
+    },
+    "history": {
+        "title": "Historique des Scans",
+        "subtitle": "Voir vos scans précédents",
+        "date": "Date",
+        "diagnosis": "Diagnostic",
+        "confidence": "Confiance",
+        "viewDetails": "Voir les Détails",
+        "noHistory": "Aucun historique de scan pour le moment",
+        "noRecordsFound": "Aucun enregistrement trouvé",
+        "noRecordsDesc": "Votre historique d'analyse apparaîtra ici une fois que vous aurez effectué un scan.",
+        "viewSequence": "Voir les Détails",
+        "loadingArchives": "Chargement des Archives",
+        "clinicalRecord": "Dossier Clinique",
+        "secondaryMatch": "Correspondance Secondaire",
+        "exportReport": "Exporter le Rapport Médical",
+        "generating": "Génération du PDF...",
+        "filterAll": "Toutes les Analyses",
+        "filterHigh": "Risque Élevé",
+        "filterMedium": "Risque Moyen",
+        "filterLow": "Risque Faible",
+        "pdf": {
+            "title": "Rapport de Scan Médical DermaAI",
+            "subtitle": "Analyse des Lésions Cutanées par IA",
+            "scanId": "ID du Scan",
+            "scanDate": "Date du Scan",
+            "generatedOn": "Généré le",
+            "primaryDiagnosis": "Diagnostic Principal",
+            "secondaryDiagnosis": "Diagnostic Secondaire",
+            "confidenceScore": "Score de Confiance",
+            "clinicalDetails": "Résumé Clinique",
+            "dangerLevel": "Niveau de Risque Clinique",
+            "analysisResults": "Résultats de l'Analyse",
+            "lesionImage": "Image de la Lésion",
+            "disclaimer": "AVERTISSEMENT MÉDICAL",
+            "disclaimerText": "Ce rapport est généré par un système IA à des fins éducatives et de dépistage uniquement. Il ne constitue PAS un diagnostic médical et ne doit PAS remplacer un avis médical professionnel. Consultez toujours un dermatologue qualifié pour le diagnostic et le traitement.",
+            "poweredBy": "Propulsé par DermaAI — dermaai.app"
+        }
+    },
+    "blog": {
+        "title": "Dernières Perspectives.",
+        "subtitle": "Découvrez les dernières recherches en dermatologie et en technologie de l'IA.",
+        "readMore": "Lire l'article complet",
+        "page": "Page {{current}} sur {{total}}",
+        "recently": "Récemment"
+    },
+    "admin": {
+        "nav": {
+            "mainMenu": "Menu Principal",
+            "preferences": "Préférences",
+            "last7Days": "7 derniers jours"
+        },
+        "stats": {
+            "scans": "Analyses Totales",
+            "users": "Utilisateurs Inscrits",
+            "active": "Actifs (24 h)",
+            "status": "État du Modèle"
+        },
+        "overview": {
+            "weeklyScans": "Analyses Hebdomadaires",
+            "weeklyScansDesc": "Analyses des 7 derniers jours",
+            "recentActivity": "Activité Récente",
+            "noActivity": "Aucune activité récente"
+        },
+        "analytics": {
+            "diagnosisDist": "Répartition des Diagnostics",
+            "diagnosisDistDesc": "Détail de tous les diagnostics enregistrés",
+            "scanTrend": "Tendance du Volume de Scans",
+            "scanTrendDesc": "Nombre quotidien de scans la semaine dernière"
+        },
+        "systems": {
+            "health": "État du Système",
+            "healthDesc": "État en temps réel de tous les services",
+            "kerasLoaded": "Modèle Keras chargé",
+            "modelNotFound": "Fichier modèle introuvable",
+            "atlasSynced": "Cluster Atlas synchronisé",
+            "connFailed": "Échec de connexion",
+            "online": "En ligne",
+            "loaded": "Chargé",
+            "notFound": "Introuvable",
+            "connected": "Connecté",
+            "disconnected": "Déconnecté",
+            "operational": "Opérationnel",
+            "active": "Actif"
+        },
+        "users": {
+            "directory": "Annuaire des Utilisateurs",
+            "registeredAccounts": "{{count}} comptes inscrits",
+            "search": "Rechercher des utilisateurs…",
+            "colUser": "Utilisateur",
+            "colEmail": "Email",
+            "colRole": "Rôle",
+            "colJoined": "Inscrit",
+            "colActions": "Actions",
+            "noUsers": "Aucun utilisateur trouvé",
+            "page": "Page {{current}} sur {{total}}"
+        },
+        "exports": {
+            "title": "Exportations de Données",
+            "desc": "Télécharger les données pour sauvegarde ou recherche",
+            "backupTitle": "Sauvegarde Complète",
+            "backupDesc": "Tous les utilisateurs et l'historique en archive JSON horodatée.",
+            "backupBtn": "Télécharger la Sauvegarde",
+            "researchTitle": "Exportation Anonymisée pour la Recherche",
+            "researchDesc": "Historique des scans sans identifiants personnels.",
+            "researchBtn": "Télécharger l'Export"
+        }
+    },
+    "about": {
+        "hero": {
+            "title": "IA de précision pour la",
+            "titleItalic": "Dermatologie Mondiale.",
+            "subtitle": "DermaAI a été fondée sur le principe que l'analyse cutanée de qualité médicale doit être instantanée, accessible et transparente. Nous exploitons les réseaux neuronaux de pointe pour combler le fossé entre les patients et les soins préventifs."
+        },
+        "values": {
+            "v1": {
+                "title": "Le patient d'abord",
+                "desc": "Nos modèles sont réglés pour une sensibilité élevée afin de garantir une détection précoce là où cela compte le plus."
+            },
+            "v2": {
+                "title": "Accès universel",
+                "desc": "Disponible 24h/24 et 7j/7 dans le monde entier, offrant des informations de niveau clinique indépendamment de la géographie."
+            },
+            "v3": {
+                "title": "Rigueur scientifique",
+                "desc": "Formé et validé contre des ensembles de données reconnus mondialement, y compris HAM10000 et ISIC."
+            }
+        },
+        "team": {
+            "title": "Le noyau visionnaire",
+            "member1": {
+                "role": "Fondateur et ingénieur principal",
+                "quote": "Construire des outils qui permettent aux gens de prendre en charge leur santé grâce au prisme de l'intelligence artificielle."
+            }
+        },
+        "cta": {
+            "title": "Prêt à commencer votre voyage ?",
+            "button": "Lancer le scan clinique"
+        }
+    },
+    "footer": {
+        "description": "Pionnier de l'avenir de l'analyse dermatologique grâce à l'intelligence artificielle avancée. Favoriser la détection précoce pour de meilleurs résultats de santé.",
+        "platform": "Plateforme",
+        "links": {
+            "scan": "Scanner Maintenant",
+            "dashboard": "Tableau de Bord",
+            "blog": "Blog",
+            "about": "À Propos"
+        },
+        "legal": "Légal",
+        "legalLinks": {
+            "privacy": "Politique de Confidentialité",
+            "terms": "Conditions d'Utilisation",
+            "cookies": "Politique de Cookies",
+            "disclaimer": "Avertissement"
+        },
+        "rights": "Tous droits réservés.",
+        "madeWith": "Fait avec",
+        "forHealth": "pour une meilleure santé"
+    },
+    "auth": {
+        "login": {
+            "titleStart": "Bon",
+            "titleEnd": "Retour.",
+            "subtitle": "Connectez-vous à votre compte.",
+            "email": "Adresse Email",
+            "emailPlaceholder": "Entrez votre email",
+            "password": "Mot de passe",
+            "button": "Se Connecter",
+            "noAccount": "Vous n'avez pas de compte ?",
+            "signUp": "S'inscrire"
+        },
+        "signup": {
+            "titleStart": "Créer un",
+            "titleEnd": "Compte.",
+            "subtitle": "Rejoignez la communauté DermaAI gratuitement.",
+            "username": "Nom complet",
+            "usernamePlaceholder": "johndoe",
+            "email": "Adresse Email",
+            "emailPlaceholder": "Entrez votre email",
+            "password": "Mot de passe",
+            "confirmPassword": "Confirmer le mot de passe",
+            "button": "Créer un compte",
+            "haveAccount": "Vous avez déjà un compte ?",
+            "signIn": "Se Connecter",
+            "errors": {
+                "passwordsDontMatch": "Les mots de passe ne correspondent pas"
+            }
+        }
+    },
+    "profile": {
+        "title": "Paramètres du Profil",
+        "personalInfo": "Informations Personnelles",
+        "personalInfoDesc": "Gérez les informations de votre compte",
+        "security": "Sécurité",
+        "securityDesc": "Gérez votre email et votre mot de passe",
+        "settings": "Préférences",
+        "changePassword": "Changer le Mot de Passe",
+        "save": "Enregistrer les Modifications",
+        "cancel": "Annuler"
+    },
+    "common": {
+        "loading": "Chargement...",
+        "error": "Erreur",
+        "success": "Succès",
+        "close": "Fermer",
+        "back": "Retour",
+        "next": "Suivant",
+        "previous": "Précédent",
+        "submit": "Soumettre",
+        "cancel": "Annuler",
+        "save": "Enregistrer",
+        "delete": "Supprimer",
+        "edit": "Modifier",
+        "view": "Voir",
+        "high": "Élevé",
+        "medium": "Moyen",
+        "low": "Faible"
+    },
+    "banner": {
+        "disclaimer": "Avis Médical : Cet outil IA est uniquement à des fins éducatives et de dépistage. Il ne remplace pas un avis médical professionnel. Consultez toujours un dermatologue pour un diagnostic."
+    },
+    "legal": {
+        "privacy": {
+            "title": "Politique de Confidentialité",
+            "content": "Chez DermaAI, nous priorisons votre vie privée. Nous ne partageons pas vos informations de santé personnelles avec des tiers sans votre consentement..."
+        },
+        "terms": {
+            "title": "Conditions d'Utilisation",
+            "content": "En utilisant DermaAI, vous acceptez que cet outil est uniquement à titre informatif et n'est pas un dispositif médical..."
+        },
+        "cookies": {
+            "title": "Politique de Cookies",
+            "content": "Nous utilisons des cookies pour améliorer votre expérience et analyser le trafic du site..."
+        },
+        "disclaimer": {
+            "title": "Avis Médical",
+            "content": "DermaAI utilise l'intelligence artificielle pour analyser les lésions cutanées. Bien que nous visions la précision, les prédictions de l'IA peuvent être incorrectes. Cet outil n'est PAS destiné à diagnostiquer, traiter, guérir ou prévenir une maladie.\n\nDemandez TOUJOURS l'avis de votre médecin ou d'un autre professionnel de santé qualifié pour toute question concernant une condition médicale.\n\nSi vous pensez avoir une urgence médicale, appelez immédiatement votre médecin ou les services d'urgence.",
+            "warning": "Cet outil IA ne remplace PAS un avis médical professionnel, un diagnostic ou un traitement."
+        },
+        "importantNotice": "Avis Important"
+    }
+}

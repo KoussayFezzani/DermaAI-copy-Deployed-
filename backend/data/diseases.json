@@ -1,0 +1,314 @@
+{
+  "diseases": [
+    {
+      "id": "melanoma",
+      "name": "Melanoma",
+      "scientificName": "Malignant Melanoma",
+      "category": "malignant",
+      "dangerLevel": "high",
+      "description": "Melanoma is the most serious type of skin cancer. It develops in melanocytes, the cells that produce melanin (the pigment that gives skin its color). Melanoma can develop anywhere on the body, in otherwise normal skin or in an existing mole that becomes cancerous.",
+      "symptoms": [
+        "A new, unusual growth or change in an existing mole",
+        "Asymmetrical mole shape",
+        "Irregular or scalloped borders",
+        "Multiple colors or uneven color distribution",
+        "Diameter larger than 6mm (size of a pencil eraser)",
+        "Evolving size, shape, or color"
+      ],
+      "identificationTips": {
+        "abcde": {
+          "a": "Asymmetry: One half of the mole doesn't match the other half",
+          "b": "Border: Edges are irregular, ragged, notched, or blurred",
+          "c": "Color: The color is not uniform and may include shades of brown, black, pink, red, white, or blue",
+          "d": "Diameter: The spot is larger than 6 millimeters across (about ¼ inch – the size of a pencil eraser)",
+          "e": "Evolving: The mole is changing in size, shape, or color"
+        }
+      },
+      "riskFactors": [
+        "Excessive UV exposure from sun or tanning beds",
+        "Fair skin, light hair, and light eyes",
+        "History of sunburns, especially in childhood",
+        "Many moles or atypical moles",
+        "Family history of melanoma",
+        "Weakened immune system"
+      ],
+      "treatment": "Treatment depends on the stage and may include surgical excision, immunotherapy, targeted therapy, radiation therapy, or chemotherapy. Early detection significantly improves outcomes.",
+      "prevention": [
+        "Use broad-spectrum sunscreen (SPF 30+) daily",
+        "Avoid tanning beds",
+        "Wear protective clothing and wide-brimmed hats",
+        "Seek shade during peak sun hours (10am-4pm)",
+        "Perform monthly self-examinations",
+        "Get annual skin checks by a dermatologist"
+      ],
+      "prevalence": "Melanoma accounts for about 1% of skin cancers but causes the majority of skin cancer deaths.",
+      "survivalRate": "5-year survival rate is 99% when detected early (localized stage), but drops to 27% for distant metastasis.",
+      "sources": [
+        "https://www.cancer.org/cancer/melanoma-skin-cancer.html",
+        "https://www.skincancer.org/skin-cancer-information/melanoma/"
+      ]
+    },
+    {
+      "id": "bcc",
+      "name": "Basal Cell Carcinoma",
+      "scientificName": "Basal Cell Carcinoma (BCC)",
+      "category": "malignant",
+      "dangerLevel": "medium",
+      "description": "Basal cell carcinoma is the most common form of skin cancer. It arises from the basal cells in the deepest layer of the epidermis. While it rarely metastasizes, it can be locally destructive if left untreated.",
+      "symptoms": [
+        "Pearly or waxy bump on face, ears, or neck",
+        "Flat, flesh-colored or brown scar-like lesion",
+        "Bleeding or scabbing sore that heals and returns",
+        "Pink growth with raised edges and central indentation",
+        "White, waxy, scar-like area without clearly defined border"
+      ],
+      "identificationTips": {
+        "characteristics": [
+          "Often appears on sun-exposed areas (face, neck, arms)",
+          "May have visible blood vessels on surface",
+          "Central ulceration or depression",
+          "Pearly, translucent appearance",
+          "Slow-growing"
+        ]
+      },
+      "riskFactors": [
+        "Chronic sun exposure",
+        "Fair skin",
+        "Age over 50",
+        "Male gender",
+        "History of radiation therapy",
+        "Exposure to arsenic",
+        "Weakened immune system"
+      ],
+      "treatment": "Treatment options include surgical excision, Mohs surgery, electrodesiccation and curettage, cryotherapy, topical medications, or radiation therapy. Mohs surgery has the highest cure rate (99%).",
+      "prevention": [
+        "Daily sunscreen use",
+        "Protective clothing",
+        "Avoid peak sun hours",
+        "Regular skin examinations",
+        "Avoid tanning beds"
+      ],
+      "prevalence": "Most common skin cancer, with over 4 million cases diagnosed annually in the US.",
+      "survivalRate": "Cure rate exceeds 95% with proper treatment. Rarely metastasizes but can cause significant local damage.",
+      "sources": [
+        "https://www.skincancer.org/skin-cancer-information/basal-cell-carcinoma/",
+        "https://www.aad.org/public/diseases/skin-cancer/types/common/bcc"
+      ]
+    },
+    {
+      "id": "akiec",
+      "name": "Actinic Keratoses",
+      "scientificName": "Actinic Keratoses / Solar Keratoses",
+      "category": "pre-malignant",
+      "dangerLevel": "medium",
+      "description": "Actinic keratoses (AK) are rough, scaly patches on the skin caused by years of sun exposure. They are considered precancerous because they can develop into squamous cell carcinoma if left untreated.",
+      "symptoms": [
+        "Rough, dry, scaly patch of skin",
+        "Flat to slightly raised patch or bump",
+        "Color variations: pink, red, or brown",
+        "Itching or burning sensation",
+        "Crusting or bleeding",
+        "Size typically less than 1 inch in diameter"
+      ],
+      "identificationTips": {
+        "characteristics": [
+          "Easier to feel than see (rough texture)",
+          "Appears on sun-exposed areas (face, scalp, hands, arms)",
+          "May come and go, but usually persist",
+          "Multiple lesions often present",
+          "Sandpaper-like texture"
+        ]
+      },
+      "riskFactors": [
+        "Fair skin, blonde or red hair, blue or green eyes",
+        "History of frequent or intense sun exposure",
+        "Age over 40",
+        "Living in sunny climates",
+        "Weakened immune system",
+        "History of sunburns"
+      ],
+      "treatment": "Treatment options include cryotherapy (freezing), topical medications (5-fluorouracil, imiquimod, diclofenac), chemical peels, photodynamic therapy, or laser therapy.",
+      "prevention": [
+        "Minimize sun exposure",
+        "Use broad-spectrum sunscreen daily",
+        "Wear protective clothing and hats",
+        "Avoid tanning beds",
+        "Regular dermatologist check-ups"
+      ],
+      "prevalence": "Affects over 58 million Americans. 10-15% of AKs may progress to squamous cell carcinoma.",
+      "survivalRate": "Not applicable (pre-cancerous), but early treatment prevents progression to cancer.",
+      "sources": [
+        "https://www.skincancer.org/skin-cancer-information/actinic-keratosis/",
+        "https://www.aad.org/public/diseases/skin-cancer/types/common/actinic-keratosis"
+      ]
+    },
+    {
+      "id": "bkl",
+      "name": "Benign Keratosis",
+      "scientificName": "Seborrheic Keratosis",
+      "category": "benign",
+      "dangerLevel": "low",
+      "description": "Benign keratosis, commonly seborrheic keratosis, is a non-cancerous skin growth that appears as a waxy, scaly, slightly elevated growth. They are harmless but can be cosmetically concerning.",
+      "symptoms": [
+        "Waxy, scaly, slightly elevated growth",
+        "Color ranges from light tan to black",
+        "Round or oval shape",
+        "Stuck-on appearance",
+        "May be itchy occasionally",
+        "Size varies from very small to over 1 inch"
+      ],
+      "identificationTips": {
+        "characteristics": [
+          "Appears to be stuck onto the skin",
+          "Waxy or scaly surface",
+          "Well-defined borders",
+          "Often multiple lesions",
+          "Common on trunk, face, and shoulders",
+          "Increases with age"
+        ]
+      },
+      "riskFactors": [
+        "Age (more common after 50)",
+        "Genetic predisposition",
+        "Sun exposure (may play a role)"
+      ],
+      "treatment": "Usually no treatment needed. Can be removed for cosmetic reasons or if irritated using cryotherapy, curettage, or electrocautery.",
+      "prevention": [
+        "No specific prevention (age-related)",
+        "Sun protection may reduce risk"
+      ],
+      "prevalence": "Very common, affecting over 80 million Americans. Nearly everyone develops at least one by age 60.",
+      "survivalRate": "100% (benign, non-cancerous)",
+      "sources": [
+        "https://www.aad.org/public/diseases/a-z/seborrheic-keratoses-overview",
+        "https://www.mayoclinic.org/diseases-conditions/seborrheic-keratosis/"
+      ]
+    },
+    {
+      "id": "dermatofibroma",
+      "name": "Dermatofibroma",
+      "scientificName": "Dermatofibroma / Fibrous Histiocytoma",
+      "category": "benign",
+      "dangerLevel": "low",
+      "description": "Dermatofibroma is a common benign skin growth that appears as a firm, raised bump. It's composed of fibrous tissue and is completely harmless, though it may be cosmetically bothersome.",
+      "symptoms": [
+        "Firm, raised bump",
+        "Color: red, brown, or purple",
+        "Size: usually 0.5-1 cm in diameter",
+        "Dimples inward when pinched (dimple sign)",
+        "May be tender or itchy",
+        "Usually solitary, but can be multiple"
+      ],
+      "identificationTips": {
+        "characteristics": [
+          "Positive dimple sign (dimples when squeezed)",
+          "Firm to hard texture",
+          "Most common on legs",
+          "Slow-growing or stable",
+          "Well-defined borders",
+          "May darken over time"
+        ]
+      },
+      "riskFactors": [
+        "Minor skin trauma or insect bites (may trigger formation)",
+        "More common in women",
+        "Can occur at any age"
+      ],
+      "treatment": "Usually no treatment necessary. Can be removed surgically if bothersome, but may leave a scar larger than the original lesion.",
+      "prevention": [
+        "No specific prevention"
+      ],
+      "prevalence": "Common, affecting millions of people. More frequent in adults.",
+      "survivalRate": "100% (benign, non-cancerous)",
+      "sources": [
+        "https://www.aad.org/public/diseases/a-z/dermatofibroma-overview",
+        "https://dermnetnz.org/topics/dermatofibroma"
+      ]
+    },
+    {
+      "id": "nv",
+      "name": "Melanocytic Nevi",
+      "scientificName": "Melanocytic Nevus (Mole)",
+      "category": "benign",
+      "dangerLevel": "low",
+      "description": "Melanocytic nevi, commonly called moles, are benign growths of melanocytes (pigment-producing cells). Most people have 10-40 moles, and they are usually harmless. However, monitoring for changes is important.",
+      "symptoms": [
+        "Small, dark brown spots",
+        "Uniform color (brown, tan, black, red, pink, or flesh-colored)",
+        "Round or oval shape",
+        "Flat or raised",
+        "Symmetrical",
+        "Distinct borders"
+      ],
+      "identificationTips": {
+        "characteristics": [
+          "Uniform color throughout",
+          "Symmetrical shape",
+          "Regular, well-defined borders",
+          "Stable size (usually < 6mm)",
+          "Present since childhood or early adulthood",
+          "No changes over time"
+        ]
+      },
+      "riskFactors": [
+        "Genetics (family history of many moles)",
+        "Fair skin",
+        "Sun exposure during childhood"
+      ],
+      "treatment": "No treatment needed unless cosmetically bothersome or showing signs of change. Suspicious moles should be biopsied.",
+      "prevention": [
+        "Sun protection to prevent new moles",
+        "Regular self-examination for changes",
+        "Annual skin checks if many moles present"
+      ],
+      "prevalence": "Extremely common. Average adult has 10-40 moles.",
+      "survivalRate": "100% (benign). Risk of melanoma development is very low (<1% lifetime risk per mole).",
+      "sources": [
+        "https://www.aad.org/public/diseases/a-z/moles-overview",
+        "https://www.skincancer.org/skin-cancer-information/melanoma/melanoma-warning-signs-and-images/do-you-know-your-abcdes/"
+      ]
+    },
+    {
+      "id": "vasc",
+      "name": "Vascular Lesions",
+      "scientificName": "Vascular Skin Lesions",
+      "category": "benign",
+      "dangerLevel": "low",
+      "description": "Vascular lesions are abnormalities of blood vessels in the skin. They include cherry angiomas, spider angiomas, and other benign vascular growths. They are generally harmless.",
+      "symptoms": [
+        "Red or purple spots or bumps",
+        "May blanch (turn white) when pressed",
+        "Size varies from pinpoint to several millimeters",
+        "Bright red color (cherry angiomas)",
+        "Spider-like appearance (spider angiomas)",
+        "Usually painless"
+      ],
+      "identificationTips": {
+        "characteristics": [
+          "Red to purple color",
+          "Blanches with pressure",
+          "Smooth surface",
+          "Well-defined borders",
+          "May increase with age",
+          "Common on trunk and extremities"
+        ]
+      },
+      "riskFactors": [
+        "Age (cherry angiomas increase with age)",
+        "Genetics",
+        "Pregnancy (spider angiomas)",
+        "Liver disease (spider angiomas)"
+      ],
+      "treatment": "Usually no treatment needed. Can be removed for cosmetic reasons using laser therapy, electrocautery, or cryotherapy.",
+      "prevention": [
+        "No specific prevention (age and genetics related)"
+      ],
+      "prevalence": "Very common. Cherry angiomas affect over 75% of people over age 75.",
+      "survivalRate": "100% (benign, non-cancerous)",
+      "sources": [
+        "https://www.aad.org/public/diseases/a-z/cherry-angioma-overview",
+        "https://dermnetnz.org/topics/cherry-angioma"
+      ]
+    }
+  ]
+}

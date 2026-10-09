@@ -1,0 +1,246 @@
+
+\documentclass[12pt,a4paper]{report}
+% ──────────────────────────────────────────────
+%  ENCODING & FONTS
+% ──────────────────────────────────────────────
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}   % Scalable T1 fonts — eliminates bitmap EC font warnings
+
+% ──────────────────────────────────────────────
+%  PAGE GEOMETRY
+% ──────────────────────────────────────────────
+\usepackage[
+top=2.5cm, bottom=2.5cm,
+left=3cm,  right=2.5cm
+]{geometry}
+
+% ──────────────────────────── ──────────────────
+%  CORE PACKAGES
+% ──────────────────────────────────────────────
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{microtype}
+% Disable font expansion — prevents fatal crash with large bitmapped
+% fonts used in chapter titles (\fontsize{40}{48}).
+\microtypesetup{expansion=false}
+\usepackage{caption}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{setspace}         
+\usepackage{enumitem}
+\usepackage{tabularx}
+\usepackage{longtable}
+\usepackage{multirow}
+\usepackage{colortbl}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{pifont}
+\usepackage{pdfpages}
+
+% ──────────────────────────────────────────────
+%  PARAGRAPH STYLE 
+% ──────────────────────────────────────────────
+\setlength{\parindent}{1.5em}
+\setlength{\parskip}{4pt}
+
+% ──────────────────────────────────────────────
+%  LINE SPACING
+% ──────────────────────────────────────────────
+\setstretch{1.45}
+
+% ──────────────────────────────────────────────
+%  COLORS
+% ──────────────────────────────────────────────
+\definecolor{backloglightblue}{HTML}{EEF6FF}
+
+% ──────────────────────────────────────────────
+%  HEADING STYLES (Strict 3-Level Hierarchy)
+% ──────────────────────────────────────────────
+\titleformat{\chapter}[display]
+{\normalfont\fontsize{40}{48}\selectfont\bfseries\centering}
+{}
+{0pt}
+{}
+\titlespacing*{\chapter}{0pt}{-10pt}{25pt}
+
+\titleformat{\section}
+{\normalfont\Large\bfseries}
+{\thesection.}
+{1em}
+{}
+\titlespacing*{\section}{0pt}{0pt}{4pt}
+
+\titleformat{\subsection}
+{\normalfont\large\bfseries}
+{\thesubsection.}
+{1em}
+{}
+\titlespacing*{\subsection}{0pt}{0pt}{4pt}
+
+\titleformat{\subsubsection}
+{\normalfont\normalsize\bfseries}
+{\thesubsubsection.}
+{1em}
+{}
+\titlespacing*{\subsubsection}{0pt}{0pt}{4pt}
+
+% Paragraph is now unnumbered and acts as a bold inline header
+\titleformat{\paragraph}[block]
+{\normalfont\normalsize\bfseries}
+{}
+{0pt}
+{}
+\titlespacing*{\paragraph}{0pt}{0pt}{2pt}
+
+% ──────────────────────────────────────────────
+%  FOOTER
+% ──────────────────────────────────────────────
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\fancyfoot[R]{\thepage}
+
+\fancypagestyle{plain}{
+	\fancyhf{}
+	\renewcommand{\headrulewidth}{0pt}
+	\renewcommand{\footrulewidth}{0.4pt}
+	\fancyfoot[R]{\thepage}
+}
+
+% ──────────────────────────────────────────────
+%  CAPTION STYLE
+% ──────────────────────────────────────────────
+\captionsetup{
+	font=it,
+	labelfont=it,
+	justification=centering,
+	labelsep=colon,
+	skip=6pt
+}
+
+% ──────────────────────────────────────────────
+%  IMAGE HELPERS
+% ──────────────────────────────────────────────
+\newcommand{\missingimagebox}[2][0.72\textwidth]{%
+	\fbox{%
+		\begin{minipage}[c][0.18\textheight][c]{#1}
+			\centering
+			\textit{Image unavailable}\\[4pt]
+			#2
+		\end{minipage}%
+	}%
+}
+
+\newcommand{\optionalimage}[3][0.72\textwidth]{%
+	\includegraphics[width=#1]{#2}%
+}
+
+\newcommand{\chapterbannerplaceholder}[1]{%
+	\vfill
+	\begin{center}
+		\fbox{%
+			\begin{minipage}[c][6cm][c]{0.85\textwidth}
+				\centering
+				\color{gray}
+				\large\bfseries
+				\textit{[Chapter #1 Illustration Placeholder]} \\
+				\vspace{0.3cm}
+				\normalsize\mdseries
+				\textit{Professional Academic Illustration} \\
+				\textit{Dimensions: 0.85\(\backslash\)textwidth \(\times\) 6cm}
+			\end{minipage}%
+		}%
+	\end{center}
+	\vfill
+}
+
+% ──────────────────────────────────────────────
+%  GLOBAL SPACING & LIST STYLES (Standardized)
+% ──────────────────────────────────────────────
+\setlength{\textfloatsep}{12pt plus 2pt minus 4pt}
+\setlength{\floatsep}{10pt plus 2pt minus 2pt}
+\setlength{\intextsep}{10pt plus 2pt minus 2pt}
+\setlength{\LTpre}{6pt}
+\setlength{\LTpost}{0pt}
+
+% Globally standardized itemize levels
+\setlist[itemize]{leftmargin=2.2em, topsep=4pt, itemsep=2pt, parsep=0pt, partopsep=0pt}
+\setlist[itemize,1]{label=\textbullet, leftmargin=2em}
+\setlist[itemize,2]{label=\textendash, leftmargin=2em}
+\setlist[itemize,3]{label=\textbullet, leftmargin=2em}
+
+% ──────────────────────────────────────────────
+%  SECTION DEPTH & HYPERREF
+% ──────────────────────────────────────────────
+\setcounter{secnumdepth}{3} % Limit numbering to subsubsection
+\setcounter{tocdepth}{3}    % Limit TOC to subsubsection
+
+\graphicspath{
+	{chap_1/images/}
+	{chap_2/images/}
+	{chap_3/images/}
+	{chap_4/images/}
+	{chap_5/images/}
+	{chap_6/images/}
+	{banners/}
+}
+
+% MyStyle pagestyle — used by bilbio.tex on the bibliography page
+\fancypagestyle{MyStyle}{
+	\fancyhf{}
+	\renewcommand{\headrulewidth}{0pt}
+	\renewcommand{\footrulewidth}{0.4pt}
+	\fancyfoot[R]{\thepage}
+}
+
+\hypersetup{hidelinks}
+
+% ══════════════════════════════════════════════
+%  DOCUMENT
+% ══════════════════════════════════════════════
+\begin{document}
+	\pagenumbering{roman}
+	
+	\includepdf{Page de garde Licence ADBD.pdf}
+	
+	\include{dedication}
+	\include{acknowledgement}
+	\include{abbreviations}
+	
+	\begin{spacing}{0.9}
+	\small
+	\tableofcontents
+	\clearpage
+	
+	\listoffigures
+	\addcontentsline{toc}{chapter}{\listfigurename}
+	\clearpage
+	
+	\listoftables
+	\addcontentsline{toc}{chapter}{\listtablename}
+	\end{spacing}
+	\clearpage
+	
+	\pagenumbering{arabic}
+	\include{general_introduction}
+	
+	\include{chap_1/chapter1}
+	\include{chap_2/chapter2}
+	\include{chap_3/chapter3}
+	\include{chap_4/chapter4}
+	\include{chap_5/chapter5}
+	\include{chap_6/chapter6}
+	
+	\include{general_conclusion}
+	
+	\include{bilbio}
+	
+	\includepdf{Last Page.pdf}
+	
+\end{document}

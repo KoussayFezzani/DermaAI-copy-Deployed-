@@ -1,0 +1,417 @@
+\setlength{\emergencystretch}{3em}
+
+% ============================================================
+%  CHAPTER 2 — TECHNICAL STUDY
+%  DermaAI: Skin Lesion Detection System
+% ============================================================
+
+\chapter[Chapter 2: Technical Study]{Chapter 2: Technical\\[12pt]
+	Study}
+\begin{center}
+	\includegraphics[width=0.85\textwidth, keepaspectratio]{chap2_cover.png}
+\end{center}
+
+\newpage
+
+% ============================================================
+\section{Introduction}
+% ============================================================
+This chapter presents the logical and physical architecture of the DermaAI web application, justified through a comparative analysis of software design patterns. It details the technologies selected for the frontend, backend, database, and deep learning components. Finally, the hardware and software development environment used for implementation is documented.
+
+% ============================================================
+\section{Architectural Specifications}
+% ============================================================
+The following sections outline and justify the logical and physical
+architectures selected for DermaAI.
+
+% ────────────────────────────────────────────────────────────
+\subsection{System Architecture}
+% ────────────────────────────────────────────────────────────
+The logical architecture describes how the different components of the
+application interact with each other. A comparison of different architectural
+styles is presented below before justifying the selection of the most
+suitable one for the application.
+
+% ············································
+\subsubsection{Comparative Study}
+% ············································
+Software architecture defines the structure of software components and
+their relationships. Two major software architectures are commonly used:
+
+\begin{itemize}
+	\item \textbf{Microservices Architecture:} It divides an application
+	into small, independent services that can be developed,
+	deployed, and scaled separately.
+	\item \textbf{Monolithic Architecture:} It organizes the application
+	as a single unified system in which the business logic, data
+	access, and user interface are packaged together.
+\end{itemize}
+
+Figure~\ref{fig:arch_compare_img} provides a visual comparison between the two architectural styles.
+
+\begin{figure}[H]
+	\centering
+	\optionalimage[0.85\textwidth]{chap_2/images/comparaison.png}{Comparison between Monolithic and Microservices Architecture}
+	\caption{\textit{Comparison between Monolithic and Microservices Architecture}}
+	\label{fig:arch_compare_img}
+\end{figure}
+
+To better understand the differences between these two architectural
+models, Table~\ref{tab:arch_compare} compares their main characteristics, strengths, and
+weaknesses.
+
+\begin{table}[H]
+	\centering
+	\renewcommand{\arraystretch}{1.35}
+	\begin{tabular}{|@{}>{\raggedright\arraybackslash}p{0.18\linewidth}|>{\raggedright\arraybackslash}p{0.36\linewidth}|>{\raggedright\arraybackslash}p{0.36\linewidth}@{}|}\hline
+		
+		\textbf{Aspect} & \textbf{Monolithic Architecture} & \textbf{Microservices Architecture} \\\hline
+		
+		\textbf{Development} & Easy to develop since everything is within a single codebase. & More difficult due to distributed services. \\\hline
+		\textbf{Testing} & Easy to test as a monolithic unit. & Requires testing multiple independent services. \\\hline
+		\textbf{Coupling} & All components are tightly coupled. & Services are loosely coupled and independent. \\\hline
+		\textbf{Technology Stack} & Limited flexibility; a single tech stack is used. & Each microservice can use different technologies. \\\hline
+		\textbf{Scalability} & Difficult to scale individual components independently. & Can scale individual services based on demand. \\\hline
+		\textbf{Reliability} & Failure in one module can crash the entire application. & Failure in one service does not affect others. \\\hline
+		\textbf{Deployment} & Requires redeployment of the entire application to update. & Can be deployed separately. \\\hline
+		\textbf{Maintenance} & Becomes harder to maintain as the application grows. & Easier to update and maintain specific services. \\ \hline
+		
+	\end{tabular}
+	\caption{\textit{Differences between Monolithic and Microservices Architecture}}
+	\label{tab:arch_compare}
+\end{table}
+
+After reviewing the criteria for both architectures, a \textbf{Modular Monolithic Architecture} was adopted for the implementation of DermaAI. Rather than fragmenting the application into separate, distributed microservices—which introduces unnecessary deployment and orchestration overhead for a project of this scale—a modular monolith keeps all backend components within a single codebase while maintaining logical separation.
+
+This choice is justified by several reasons:
+
+\begin{itemize}
+	\item \textbf{Development Speed \& Simplicity:} A single backend application simplifies the development environment, testing, and debugging.
+	\item \textbf{Logical Separation:} Modular routing enforces strict boundaries between different services (e.g., authentication, deep learning inference, analytics) without the complexity of network calls between services.
+	\item \textbf{Native Deep Learning Integration:} Keeping the AI inference pipeline within the same memory space as the API avoids heavy data serialization overhead when passing high-resolution images.
+	\item \textbf{Ease of Deployment:} A modular monolith requires only a single deployment pipeline, making it easier to maintain and host.
+\end{itemize}
+
+The system is organized into several modular components and services, as illustrated in Figure~\ref{fig:global_arch}.
+
+\begin{figure}[H]
+	\centering
+	\optionalimage[0.85\textwidth]{chap_2/images/global.png}{global Architecture}
+	\caption{\textit{Global Architecture of the Developed Solution}}
+	\label{fig:global_arch}
+\end{figure}
+
+
+\textbf{System Overview:}
+
+The system works as follows:
+
+\begin{itemize}
+	\item A user initiates an HTTP request through the frontend client.
+	\item The request is processed and directed to the Core Backend REST API.
+	\item The REST API routes the request to the appropriate internal module (e.g., Auth, Deep Learning Service, Web Scraper) via modular routing.
+	\item Once processing is complete, the result is formatted as JSON and returned to the user through an HTTP response.
+\end{itemize}
+
+% ············································
+\subsubsection{Internal Architecture of the Backend System}
+% ············································
+To remain efficient and maintainable, the system follows a strict Client-Server architecture with a clearly decoupled frontend and backend.
+
+\paragraph{Backend Architecture}
+
+Figure~\ref{fig:backend_arch} illustrates the internal structure of the backend layer.
+
+\begin{figure}[H]
+	\centering
+	\optionalimage[0.85\textwidth]{chap_2/images/backend.png}{backend Architecture}
+	\caption{\textit{Architecture of the Backend Layer}}
+	\label{fig:backend_arch}
+\end{figure}
+
+The backend of the application is implemented using an API-driven modular architecture. Instead of traditional MVC where the backend renders views, this architecture strictly separates the data processing layer from the presentation layer.
+
+Key Backend Components:
+
+\begin{itemize}
+	\item \textbf{Data Layer \& Repositories:} This handles database interactions using a NoSQL database driver. It is responsible for reading and writing data, validating entities prior to persistence, and defining data structures for users, scan histories, and system logs.
+	
+	\item \textbf{Routing System:} Modular routing mechanisms are used to logically organize the API endpoints. Related endpoints are grouped into dedicated modules such as \texttt{/api/auth}, \texttt{/api/scan}, \texttt{/api/history}, \texttt{/api/admin}, and \texttt{/api/news}. This ensures the codebase remains modular and scalable.
+	
+	\item \textbf{Service Logic:} Business rules and complex operations are extracted from the routes and placed in dedicated services. This includes the \texttt{prediction\_service} (managing the deep learning inference and heatmap generation), the \texttt{chat\_service} (managing the local AI conversational model), and the \textbf{Web Scraping Service} (using web scraping tools to actively extract real-time news).
+\end{itemize}
+
+\paragraph{AI Component}
+
+The artificial intelligence layer is seamlessly integrated within the backend architecture. It consists of two main pillars:
+\begin{itemize}
+    \item \textbf{Deep Learning Inference Pipeline:} A convolutional neural network (CNN) model handles the primary task of skin lesion classification. It processes user-uploaded images, extracts features, and outputs a diagnostic probability along with a visual heatmap to explain the prediction.
+    \item \textbf{Conversational AI Agent:} A natural language processing model serves as an intelligent chatbot, providing contextual information and answering dermatological queries to support the users.
+\end{itemize}
+
+\paragraph{Frontend Architecture}
+
+Figure~\ref{fig:frontend_arch} shows the component-based structure of the frontend framework.
+
+\begin{figure}[H]
+	\centering
+	\optionalimage[0.85\textwidth]{chap_2/images/frontend.png}{frontend Architecture}
+	\caption{\textit{Frontend Architecture of the Developed Solution}}
+	\label{fig:frontend_arch}
+\end{figure}
+
+The frontend of the application is developed using a modern JavaScript library and follows a component-based architecture. The interface is organized into reusable components, contexts, and specific pages, which improves modularity and simplifies maintenance.
+
+Key Frontend Components:
+
+\begin{itemize}
+	\item \textbf{Modules / Contexts:} State management Contexts and modules are
+	logical repositories that collect and organize related
+	features such as global state, themes, authentication sessions, and localization contexts across the application.
+	
+	\item \textbf{Components:} All frontend applications consist of one
+	or more components, which are the fundamental building blocks
+	of the user interface. Components are JavaScript functions that return
+	template syntax (e.g., Navbar, interactive BodyMap, ResultsDisplay).
+	
+	\item \textbf{Templates:} The frontend uses a syntax extension
+	for JavaScript that combines markup and component logic,
+	making it easier to describe dynamic interfaces.
+	
+	\item \textbf{Routing System:} A client-side routing system is used
+	for handling navigation among the different views of the
+	application without requiring full page reloads.
+	
+	\item \textbf{HTTP Fetch API:} The frontend relies natively on the JavaScript Fetch API to interact with the backend. Dedicated service functions attach authorization headers (authorization tokens) and handle API request lifecycles transparently.
+\end{itemize}
+
+% ────────────────────────────────────────────────────────────
+\subsection{Physical Architecture}
+% ────────────────────────────────────────────────────────────
+The choice of physical architecture is an important decision as it
+directly affects the performance and scalability of the system. A three-tier architecture was adopted, which extends the classic client-server model.
+
+\textbf{Presentation Layer}
+
+This layer corresponds to the user interface (UI), built with modern frontend technologies. Its primary role is to consume the backend API and present the platform's services in a seamless, responsive layout on any device.
+
+\textbf{Business Logic Layer}
+
+This layer handles the core operations of the application. It processes requests from the presentation layer and executes business rules. It hosts the RESTful API, the deep learning inference pipeline, the local AI chatbot model, and the data extraction scripts.
+
+\textbf{Data Access Layer}
+
+This layer manages interaction with the NoSQL database for data retrieval and storage, preserving data integrity for user profiles, scan histories, heatmap paths, and system logs.
+
+Figure~\ref{fig:physical_arch} presents the three-tier physical architecture of the system.
+
+\begin{figure}[H]
+	\centering
+	\optionalimage[0.85\textwidth]{chap_2/images/physical.png}{Physical Diagram}
+	\caption{\textit{Physical Architecture of the Developed Solution}}
+	\label{fig:physical_arch}
+\end{figure}
+
+% ────────────────────────────────────────────────────────────
+\subsection{Deployment Diagram}
+% ────────────────────────────────────────────────────────────
+To model the physical architecture of the application and illustrate the relationships between software components and hardware infrastructure, the deployment diagram is presented below in Figure~\ref{fig:deployment_diag}.
+
+\begin{figure}[H]
+	\centering
+	\optionalimage[0.85\textwidth]{chap_2/images/deployement.png}{Deployment diagram}
+	\caption{\textit{Deployment Diagram}}
+	\label{fig:deployment_diag}
+\end{figure}
+
+% ============================================================
+\section{Technological Specification}
+% ============================================================
+This section presents the hardware and software environment used during
+application development.
+
+% ────────────────────────────────────────────────────────────
+\subsection{Hardware Environment}
+% ────────────────────────────────────────────────────────────
+The NVIDIA GeForce RTX 3050 Ti Laptop GPU, equipped with 2560 CUDA cores and 4~GB of dedicated GDDR6 memory, was leveraged to accelerate the deep learning training and inference pipelines using CUDA-enabled TensorFlow.
+
+\begin{figure}[H]
+    \centering
+    \optionalimage[0.45\textwidth]{chap_2/images/lenovo.jpg}{Deployment diagram}
+    \caption{\textit{Hardware Environment: Lenovo IdeaPad 3}}
+    \label{fig:lenovo_ideapad}
+\end{figure}
+
+\begin{table}[H]
+	\centering
+	\renewcommand{\arraystretch}{1.35}
+	\begin{tabular}{>{\raggedright\arraybackslash}p{0.35\linewidth}>{\raggedright\arraybackslash}p{0.50\linewidth}}
+		\toprule
+		\textbf{PC} & \textbf{Portable} \\
+		\midrule
+		\textbf{RAM} & 16 GB \\
+		\textbf{Processor} & AMD Ryzen 5 5600H \\
+		\textbf{Storage} & 476.9 GB SSD \\
+		\textbf{GPU} & NVIDIA GeForce RTX 3050 Ti Laptop (4 GB GDDR6) \\
+		\textbf{Operating System} & Windows 11 \\
+		\bottomrule
+	\end{tabular}
+	\caption{\textit{Hardware Environment Used for Development}}
+\end{table}
+
+% ────────────────────────────────────────────────────────────
+\subsection{Software Environment}
+% ────────────────────────────────────────────────────────────
+In this section, we will present and detail the various software tools used in our work.
+
+% ············································
+\subsubsection{Development Tools}
+% ············································
+Visual Studio Code (VS Code) was utilized as the primary text editor for frontend and backend development. Its support for multiple languages and libraries, alongside useful extensions, facilitated efficient code writing for Python, React, HTML5, and CSS3.
+
+
+
+GitHub was used for version control, collaboration, and source-code management throughout the project. It is designed to coordinate the work of programmers and track changes in any set of files.
+
+\begin{figure}[H]
+	\centering
+	\optionalimage[0.18\textwidth]{chap_2/images/github.png}{GitHub Logo}
+	\caption{\textit{GitHub Logo}}
+\end{figure}
+
+% ············································
+\subsubsection{Database Management Tool}
+% ············································
+MongoDB Compass is the graphical interface used to interact with the database during development. It allows us to explore data, run queries, inspect collections, and visualize schemas more efficiently.
+
+\begin{figure}[H]
+	\centering
+	\optionalimage[0.18\textwidth]{chap_2/images/mongodb_compass.png}{MongoDB Compass Logo}
+	\caption{\textit{MongoDB Compass Logo}}
+\end{figure}
+
+% ············································
+\subsubsection{API Management Tool}
+% ············································
+Postman is a popular API client that allows developers to easily create, share, test, and document APIs. It enables users to create and save simple and complex HTTP/s requests, as well as read their responses.
+
+\begin{figure}[H]
+	\centering
+	\optionalimage[0.18\textwidth]{chap_2/images/postman.png}{Postman Logo}
+	\caption{\textit{Postman Logo}}
+\end{figure}
+
+% ············································
+\subsubsection{Project Management Tool}
+% ············································
+Trello is a popular project management tool that uses boards, lists, and cards to help organize tasks and projects. It offers an intuitive interface for tracking progress, assigning tasks, and collaborating with team members. Trello is highly visual and flexible, making it an ideal choice for agile teams to manage Scrum sprints.
+
+\begin{figure}[H]
+	\centering
+	\optionalimage[0.18\textwidth]{chap_2/images/trello.png}{Trello Logo}
+	\caption{\textit{Trello Logo}}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\optionalimage[0.85\textwidth]{chap_2/images/trello Global Workplace.png}{Trello Global Workplace}
+	\caption{\textit{Trello Global Workplace: Overview of Sprint Boards}}
+	\label{fig:trello_workspace}
+\end{figure}
+
+% ────────────────────────────────────────────────────────────
+\subsection{Technologies and Programming Languages Used}
+% ────────────────────────────────────────────────────────────
+In this section, we will get introduced to the technologies and programming languages employed to develop our application.
+
+\begin{itemize}
+	\item \textbf{Flask} is an open-source Python micro-framework for developing modern web applications and REST APIs. In our project, it serves as the core backend framework and supports a modular organization of the application's business logic, routing, and data management.
+\end{itemize}
+
+\begin{figure}[H]
+	\centering
+	\optionalimage[0.18\textwidth]{chap_2/images/flask.png}{Flask Logo}
+	\caption{\textit{Flask Logo}}
+\end{figure}
+
+\textbf{\textbf{Flask Backend Selection}}
+\begin{itemize}
+	\item[\textbf{o}] \textbf{Modular Architecture:} It offers a clear separation of concerns via Blueprints, making the app organized, maintainable, and scalable.
+	\item[\textbf{o}] \textbf{Native Deep Learning Integration:} Python allows direct integration with TensorFlow and Keras models, enabling seamless execution of the Xception inference pipeline.
+	\item[\textbf{o}] \textbf{Rapid Development:} Simple routing and a lightweight nature make development fast and straightforward.
+	\item[\textbf{o}] \textbf{Testing and Debugging:} Flask supports built-in testing features for unit and integration testing, which ensures high-quality code.
+\end{itemize}
+
+\begin{itemize}
+	\item \textbf{React} is a widely used open-source JavaScript library for building modern web applications using JavaScript and JSX. It enables the development of Single Page Applications (SPA), where content dynamically changes based on the context without reloading the entire page. React follows a component-based architecture and provides a rich set of tools for building highly performant and scalable web applications.
+\end{itemize}
+
+\begin{figure}[H]
+	\centering
+	\optionalimage[0.18\textwidth]{chap_2/images/react.png}{React Logo}
+	\caption{\textit{React Logo}}
+\end{figure}
+
+\textbf{\textbf{React Frontend Selection}}
+\begin{itemize}
+	\item[\textbf{o}] \textbf{Component-Based Architecture:} React has a modular architecture, which allows for simple organization, maintenance, and scaling of applications.
+	\item[\textbf{o}] \textbf{JavaScript / JSX:} React is built with JavaScript and JSX, which improve code quality and development productivity by writing UI elements directly in JavaScript.
+	\item[\textbf{o}] \textbf{Virtual DOM:} React's Virtual DOM ensures fast and efficient updates to the user interface, which makes UI updates simple and performant.
+	\item[\textbf{o}] \textbf{Hooks \& Contexts:} React allows for the creation of custom hooks and contexts, so application state management can be made flexible and reusable.
+\end{itemize}
+
+\begin{itemize}
+	\item \textbf{Tailwind CSS} is a utility-first CSS framework that builds on CSS. It provides support for predefined classes and responsive design utilities, and is more flexible and efficient compared to traditional CSS for rapid UI development.
+\end{itemize}
+
+\begin{figure}[H]
+	\centering
+	\optionalimage[0.18\textwidth]{chap_2/images/tailwind.png}{Tailwind CSS Logo}
+	\caption{\textit{Tailwind CSS Logo}}
+\end{figure}
+
+\begin{itemize}
+	\item \textbf{Python} is a widely used open-source high-level programming language for web development and artificial intelligence. It is used to create dynamic backend systems, execute deep learning inferences using TensorFlow and Keras, and run standalone scripts.
+\end{itemize}
+
+\begin{figure}[H]
+	\centering
+	\optionalimage[0.18\textwidth]{chap_2/images/python.png}{Python Logo}
+	\caption{\textit{Python Logo}}
+\end{figure}
+
+\begin{itemize}
+	\item \textbf{TensorFlow / Keras} is an open-source deep learning framework used to build, train, and deploy the core model of the DermaAI platform. It supports the Xception architecture and provides all the tools required for transfer learning, fine-tuning, and GPU-accelerated inference.
+\end{itemize}
+
+\begin{figure}[H]
+	\centering
+	\optionalimage[0.18\textwidth]{chap_2/images/tensorflowkeras.jpg}{TensorFlow Logo}
+	\caption{\textit{TensorFlow Logo}}
+\end{figure}
+
+\begin{itemize}
+	\item \textbf{NoSQL Database (MongoDB)} is a popular NoSQL database management system. It is widely used for web applications and known for its speed, reliability, flexible schema, and ease of use. MongoDB stores data in JSON-like BSON documents, perfectly aligning with JavaScript frameworks and our API response structures.
+\end{itemize}
+
+\begin{figure}[H]
+	\centering
+	\optionalimage[0.18\textwidth]{chap_2/images/mongodb.png}{NoSQL Database Logo}
+	\caption{\textit{NoSQL Database Logo}}
+\end{figure}
+
+\textbf{\textbf{NoSQL Database Selection}}
+\begin{itemize}
+	\item[\textbf{o}] Easy to configure and use.
+	\item[\textbf{o}] NoSQL databases like MongoDB have extensive documentation and an active community.
+	\item[\textbf{o}] NoSQL DB delivers fast performance, especially for simple queries, and scales horizontally, making it highly suitable for storing growing volumes of medical scan histories and diagnostic records.
+\end{itemize}
+
+\begin{itemize}
+	\item \textbf{BeautifulSoup4 \& PyMongo \& JWT:} In addition to the core frameworks, Python utility libraries such as PyMongo (for database communication), BeautifulSoup (for web scraping), and Flask-JWT-Extended (for security) were crucial to developing the full backend infrastructure.
+\end{itemize}
+
+% ============================================================
+\section{Conclusion}
+% ============================================================
+This chapter presented the architectural choices behind DermaAI, justifying the selection of a Modular Monolithic approach with a decoupled React frontend. It also detailed the hardware and deep learning tools, such as TensorFlow and Keras, required for implementation. The next chapter introduces the first sprint, focusing on access management and identity features.

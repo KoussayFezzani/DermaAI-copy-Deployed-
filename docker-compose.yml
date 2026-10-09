@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  # MongoDB Database Service
+  mongodb:
+    image: mongo:7.0
+    container_name: dermaai_mongodb
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_DATABASE: skin_lesion_db
+    volumes:
+      - mongo_data:/data/db
+
+  # Backend REST API Service
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: dermaai_backend
+    restart: unless-stopped
+    ports:
+      - "5000:5000"
+    environment:
+      MONGO_URI: mongodb://mongodb:27017/skin_lesion_db
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY:-dermaai-production-secret-key-change-in-env}
+      CORS_ORIGINS: http://localhost,http://localhost:80,http://localhost:5173
+      FLASK_ENV: production
+      FLASK_DEBUG: 0
+      PORT: 5000
+    depends_on:
+      - mongodb
+    volumes:
+      - backend_uploads:/app/uploads
+      - ./backend/saved_models:/app/saved_models:ro
+
+  # Frontend SPA Service (Nginx)
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: dermaai_frontend
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+
+volumes:
+  mongo_data:
+  backend_uploads:

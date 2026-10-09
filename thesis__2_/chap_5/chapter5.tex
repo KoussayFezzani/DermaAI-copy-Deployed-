@@ -1,0 +1,235 @@
+\setlength{\emergencystretch}{3em}
+
+% ============================================================
+%  CHAPTER 5 — SPRINT 3
+% ============================================================
+
+\chapter[Chapter 5: Sprint 3 — History, AiChabot \& Reports]{Chapter 5: Sprint 3 — History,\\[12pt]
+	AiChabot \& Reports}
+\begin{center}
+	\includegraphics[width=0.85\textwidth, keepaspectratio]{chap5_cover.png}
+\end{center}
+
+\newpage
+
+% ============================================================
+\section{Introduction}
+% ============================================================
+This chapter details the third development sprint, focusing on enriching the post-diagnostic user experience. It covers the integration of a localized Qwen conversational assistant designed to answer dermatological questions in complete privacy. Additionally, the implementation of a scan history dashboard and a structured PDF report generator is presented and explained.
+
+% ============================================================
+\section{Objectives}
+% ============================================================
+The primary objectives established for Sprint 3 include:
+\begin{itemize}
+	\item Implement a secure, localized AI Chatbot capable of answering user queries while maintaining strict medical safety boundaries.
+	\item Develop an interface allowing users to view, manage, and delete their past scan histories from the database.
+	\item Create a dynamic PDF generator to compile the AI diagnosis, confidence scores, and Grad-CAM visualizations into a structured, downloadable medical report.
+	\item Enable longitudinal tracking to allow users to compare their baseline scans with follow-up scans over time.
+\end{itemize}
+
+% ============================================================
+\section{Design}
+% ============================================================
+This section outlines the functional and interactive design of the assistance and tracking tools developed during the sprint.
+
+% ────────────────────────────────────────────────────────────
+\subsection{Use-Cases Modeling}
+% ────────────────────────────────────────────────────────────
+Figure~\ref{fig:sprint3_usecase} illustrates the use-cases for Sprint 3, demonstrating how the User interacts with the Chatbot and the History management system.
+
+\begin{figure}[H]
+	\centering
+	\optionalimage[0.70\textwidth]{chap_5/images/sp3 use case.png}{Sprint 3 Use-Cases Diagram}
+	\caption{\textit{Use-Cases Diagram for Sprint 3}}
+	\label{fig:sprint3_usecase}
+\end{figure}
+
+% ············································
+\subsubsection{Interact with Digital Assistant}
+% ············································
+\begin{table}[H]
+	\centering
+	\footnotesize
+	\renewcommand{\arraystretch}{1.5}
+	\begin{tabular}{|p{3cm}|p{11.5cm}|}
+		\hline
+		\rowcolor[HTML]{1F3864}
+		{\color{white}\textbf{Use Case}} & {\color{white}\textbf{Interact with Digital Assistant}} \\
+		\hline
+		\textbf{Actor} & User \\
+		\hline
+		\textbf{Precondition} & The user is logged in and opens the Chatbot interface. \\
+		\hline
+		\textbf{Postcondition} & The assistant provides a context-aware response based on the latest scan. \\
+		\hline
+		\textbf{Nominal Scenario} & 
+		1. The user asks a question regarding their skin condition.\newline
+		2. The frontend sends the query along with the recent diagnosis context to the backend.\newline
+		3. The local LLM (Large Language Model) processes the prompt.\newline
+		4. The assistant streams the generated text back to the user interface. \\
+		\hline
+		\textbf{Alternative} & 
+		If the user asks an off-topic question (e.g., politics, coding), the assistant politely declines and redirects the conversation back to dermatology. \\
+		\hline
+	\end{tabular}
+	\caption{\textit{Textual Description: Interact with Digital Assistant}}
+\end{table}
+
+% ────────────────────────────────────────────────────────────
+\subsection{Activity Diagram}
+% ────────────────────────────────────────────────────────────
+Figure~\ref{fig:sprint3_activity} presents the activity diagram modeling the user interactions during Sprint 3.
+
+\begin{figure}[H]
+	\centering
+	\optionalimage[0.82\textwidth]{chap_5/images/activiy diagram sp3.png}{Activity Diagram for Sprint 3}
+	\caption{\textit{Activity Diagram for Sprint 3}}
+	\label{fig:sprint3_activity}
+\end{figure}
+
+% ────────────────────────────────────────────────────────────
+\subsection{Class Diagram}
+% ────────────────────────────────────────────────────────────
+Figure~\ref{fig:sprint3_class} shows the conceptual class diagram for the entities managed during this sprint.
+
+\begin{figure}[H]
+	\centering
+	\optionalimage[0.55\textwidth]{chap_5/images/class sp3.png}{Sprint 3 Class Diagram}
+	\caption{\textit{Conceptual Class Diagram for Sprint 3}}
+	\label{fig:sprint3_class}
+\end{figure}
+
+% ────────────────────────────────────────────────────────────
+\subsection{Sequence Diagram}
+% ────────────────────────────────────────────────────────────
+Figure~\ref{fig:sprint3_seq_chat} maps the interaction flow between the client, the backend Chat API, and the local HuggingFace inference engine when generating a conversational response.
+
+\begin{figure}[H]
+	\centering
+	\optionalimage[0.85\textwidth]{chap_5/images/seq sp3 (1).png}{Chatbot Sequence Diagram}
+	\caption{\textit{Sequence Diagram: AI Chatbot Interaction}}
+	\label{fig:sprint3_seq_chat}
+\end{figure}
+
+% ============================================================
+\section{Tasks}
+% ============================================================
+The specific implementation tasks required to complete Sprint 3 are detailed in the sprint backlog.
+
+\begin{table}[H]
+	\centering
+	\small
+	\renewcommand{\arraystretch}{1.2}
+	\begin{tabular}{|>{\centering\arraybackslash}p{0.8cm}|>{\raggedright\arraybackslash}p{4.5cm}|>{\raggedright\arraybackslash}p{6.8cm}|}
+		\hline
+		\rowcolor[HTML]{1F3864}
+		{\color{white}\textbf{ID}} & {\color{white}\textbf{User Story}} & {\color{white}\textbf{Task Description}} \\
+		\hline
+		\textbf{8} & As a user, I want to interact with a smart digital assistant to ask follow-up questions about my screening results. & Configure the backend to load the local Qwen language model using PyTorch/Transformers. \\
+		\cline{3-3}
+		& & Develop the Floating Chat UI component with real-time text streaming. \\
+		\hline
+		\textbf{9} & As a user, I want to view my scan history and delete my personal records if needed. & Create backend REST endpoints to retrieve and delete documents from the MongoDB history collection. \\
+		\cline{3-3}
+		& & Design the History Dashboard UI with a responsive grid. \\
+		\hline
+		\textbf{10} & As a user, I want to generate and download a comprehensive PDF report of my scan for my medical records. & Implement client-side PDF generation using jsPDF, injecting dynamic risk colors and Grad-CAM overlays. \\
+		\cline{3-3}
+		& & Implement the Longitudinal Comparison PDF logic for baseline follow-ups. \\
+		\hline
+	\end{tabular}
+	\caption{\textit{Sprint 3 Backlog}}
+	\label{tab:sprint3_backlog}
+\end{table}
+
+% ============================================================
+\section{Development}
+% ============================================================
+This section highlights the user interfaces and functional systems developed for user assistance and tracking.
+
+% ────────────────────────────────────────────────────────────
+\subsection{User Interfaces}
+% ────────────────────────────────────────────────────────────
+
+\paragraph{Floating Chat Assistant Interface}
+The digital assistant is integrated as a floating module, ensuring it is universally accessible across the platform. The UI supports real-time text streaming, giving the conversational AI a responsive, human-like typing feel. Figure~\ref{fig:ui_chat} shows the chat assistant interface.
+
+\begin{figure}[H]
+	\centering
+	\optionalimage[0.50\textwidth]{chap_5/images/chatbot.png}{Chat Interface}
+	\caption{\textit{Digital Assistant Chat Interface}}
+	\label{fig:ui_chat}
+\end{figure}
+
+\paragraph{Scan History Interface}
+The History page retrieves the user's past scans from MongoDB and displays them chronologically in a clear grid format. Users can directly download PDF reports for past scans, delete specific records to maintain privacy, or select two scans for longitudinal comparison. Figure~\ref{fig:ui_history} presents the scan history interface.
+
+\begin{figure}[H]
+	\centering
+	\optionalimage[0.85\textwidth]{chap_5/images/scan_history.png}{History Interface}
+	\caption{\textit{Scan History Management Interface}}
+	\label{fig:ui_history}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\optionalimage[0.85\textwidth]{chap_5/images/scan_history_singular.png}{Singular History View}
+	\caption{\textit{Individual Scan History Details}}
+	\label{fig:ui_history_singular}
+\end{figure}
+
+\paragraph{Generated PDF Medical Report}
+The system utilizes \texttt{jsPDF} to generate structured, professional documents on the client side. The PDFs are dynamically styled, featuring risk-based color coding (e.g., Amber for moderate risk, Red for high risk), the embedded original image, and clear clinical guidance with a strict medical disclaimer. Figure~\ref{fig:ui_pdf} shows an example of a generated diagnostic report.
+
+\begin{figure}[H]
+	\centering
+	\optionalimage[0.85\textwidth]{chap_5/images/pdf_gen.png}{PDF Report}
+	\caption{\textit{Example of a Generated Diagnostic PDF Report}}
+	\label{fig:ui_pdf}
+\end{figure}
+
+% ============================================================
+\section{AI Model Development: Local Conversational Assistant}
+% ============================================================
+One of the most critical architectural decisions for the Chatbot was prioritizing patient data privacy. Instead of relying on external commercial APIs (which would require sending sensitive medical inquiries to third-party servers), a \textbf{100\% Local Large Language Model (LLM)} was integrated.
+
+% ────────────────────────────────────────────────────────────
+\subsection{Model Selection and Inference Engine}
+% ────────────────────────────────────────────────────────────
+The system implements the \textbf{Qwen2.5-0.5B-Instruct} model, loaded dynamically via the HuggingFace \texttt{transformers} and \texttt{torch} libraries. This lightweight but highly capable instruct-tuned model is executed directly on the host server's GPU, guaranteeing that user queries and diagnostic contexts remain entirely private.
+
+To optimize system memory, the chatbot service was implemented using a \textbf{Singleton Design Pattern}. This ensures that the 0.5B parameter model and its tokenizer are only loaded into GPU memory once during the application's lifecycle. A fallback mechanism was also implemented: if the heavy AI libraries are unavailable or fail to load, the system degrades gracefully and returns a predefined localized error message, allowing the rest of the web application to function without crashing.
+
+% ────────────────────────────────────────────────────────────
+\subsection{Contextual Prompt Engineering and Localization}
+% ────────────────────────────────────────────────────────────
+To ensure the AI operates safely within a medical context, rigorous system-level Prompt Engineering was applied. The model is injected with a hidden context payload during every interaction containing:
+\begin{itemize}
+	\item \textbf{Diagnostic Context:} If the user just completed a scan, the exact Xception prediction (e.g., "Actinic Keratosis, 85\% confidence") is fed to the LLM, allowing it to provide specific, relevant advice regarding their exact result.
+	\item \textbf{Topic Guardrails:} The system prompt explicitly strictly forbids the model from discussing non-medical topics (e.g., politics, coding) and forces it to politely redirect the conversation back to dermatology.
+	\item \textbf{Medical Safety Constraints:} The model is explicitly barred from generating definitive diagnoses or suggesting medication, actively enforcing a rule to encourage users to consult certified dermatologists.
+	\item \textbf{Dynamic Localization:} The prompt dynamically injects strict language enforcement rules (e.g., \textit{"You MUST respond ONLY in Arabic"}). This allows the model to reply natively in English, French, or Arabic based on the user's active UI preference, entirely bypassing the need for external translation services.
+\end{itemize}
+
+% ────────────────────────────────────────────────────────────
+\subsection{Real-Time Token Streaming}
+% ────────────────────────────────────────────────────────────
+Generating responses from an LLM can take several seconds. To prevent the user interface from freezing while waiting for the full response, a real-time streaming architecture was implemented. Using the \texttt{TextIteratorStreamer} utility combined with Python's \texttt{threading} module, the backend begins generating tokens asynchronously. As each word is predicted by the model, it is immediately yielded via a Server-Sent Events (SSE) stream to the React frontend. This provides a fast, human-like typing experience, significantly improving the perceived performance of the assistant.
+
+% ============================================================
+\section{Progress Tracking}
+% ============================================================
+Task execution was monitored via the Trello Kanban board. Figure~\ref{fig:trello_sprint3} captures the state of the board at the completion of Sprint 3, verifying that all assistant and tracking functionalities were realized.
+
+\begin{figure}[H]
+	\centering
+	\optionalimage[0.40\textwidth]{chap_5/images/trello_sprint3.png}{Trello Sprint 3}
+	\caption{\textit{Trello Board at the End of Sprint 3}}
+	\label{fig:trello_sprint3}
+\end{figure}
+
+% ============================================================
+\section{Conclusion}
+% ============================================================
+Sprint 3 successfully bridged the gap between AI predictions and actionable user insights through personalized assistance tools. By implementing a privacy-preserving chatbot, chronological scan histories, and professional PDF exports, the system provides a reliable way to track dermatological health. The final chapter will explore Sprint 4, which focuses on administrative controls and analytics.

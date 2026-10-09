@@ -1,0 +1,478 @@
+\setlength{\emergencystretch}{3em}
+
+% ============================================================
+%  CHAPTER 4 — SPRINT 2
+% ============================================================
+
+\chapter[Chapter 4: Sprint 2 — AI Scan \& Diagnosis]{Chapter 4: Sprint 2 — AI Scan\\[12pt]
+	\& Diagnosis}
+\begin{center}
+	\includegraphics[width=0.85\textwidth, keepaspectratio]{chap4_cover.jpg}
+\end{center}
+
+\newpage
+
+% ============================================================
+\section{Introduction}
+% ============================================================
+This chapter presents the second development sprint, focusing on the core AI-powered skin lesion scanner. The diagnostic pipeline leverages the Xception convolutional neural network, trained on the HAM10000 dataset and enhanced with Grad-CAM explainability. The integration tasks, frontend scanning interface, and detailed AI model evaluations are documented in the following sections.
+
+% ============================================================
+\section{Objectives}
+% ============================================================
+The main objectives to be accomplished during this sprint are:
+\begin{itemize}
+	\item Develop an intuitive frontend interface allowing users to upload skin lesion images.
+	\item Implement an interactive body map for users to optionally pinpoint the location of the lesion, providing contextual data for the scan.
+	\item Integrate the trained Xception deep learning model to return a primary and secondary diagnosis with confidence scores.
+	\item Implement Grad-CAM (Gradient-weighted Class Activation Mapping) to generate visual heatmaps, explaining exactly which regions of the image the AI analyzed.
+	\item Automatically store the scan results and contextual data in the user's history.
+\end{itemize}
+
+% ============================================================
+\section{Design}
+% ============================================================
+This section details the functional and static design of the core scanning process.
+
+% ────────────────────────────────────────────────────────────
+\subsection{Use-Cases Modeling}
+% ────────────────────────────────────────────────────────────
+Figure~\ref{fig:sprint2_usecase} illustrates the use-cases diagram for the scanning process.
+
+\begin{figure}[H]
+	\centering
+	\optionalimage[0.70\textwidth]{chap_4/images/sp2 use case.png}{Sprint 2 Use-Cases Diagram}
+	\caption{\textit{Use-Cases Diagram for Sprint 2}}
+	\label{fig:sprint2_usecase}
+\end{figure}
+
+% ············································
+\subsubsection{Perform Skin Lesion Scan}
+% ············································
+\begin{table}[H]
+	\centering
+	\footnotesize
+	\renewcommand{\arraystretch}{1.5}
+	\begin{tabular}{|p{3cm}|p{11.5cm}|}
+		\hline
+		\rowcolor[HTML]{1F3864}
+		{\color{white}\textbf{Use Case}} & {\color{white}\textbf{Perform Skin Lesion Scan}} \\
+		\hline
+		\textbf{Actor} & User \\
+		\hline
+		\textbf{Precondition} & The user is authenticated and on the Scan page. \\
+		\hline
+		\textbf{Postcondition} & The AI returns a diagnosis, a Grad-CAM heatmap, and saves the record. \\
+		\hline
+		\textbf{Nominal Scenario} & 
+		1. The user uploads an image of a skin lesion.\newline
+		2. (Optional) The user selects the affected area on the body map.\newline
+		3. The system processes the image using the Deep Learning model.\newline
+		4. The system generates a Grad-CAM heatmap.\newline
+		5. The results (diagnosis, confidence, heatmap) are displayed.\newline
+		6. The record is stored in the database history. \\
+		\hline
+		\textbf{Alternative} & 
+		If the uploaded file is corrupted or not a valid image format, the system rejects it and displays an error alert. \\
+		\hline
+	\end{tabular}
+	\caption{\textit{Textual Description: Perform Skin Lesion Scan}}
+\end{table}
+
+% ────────────────────────────────────────────────────────────
+\subsection{Activity Diagram}
+% ────────────────────────────────────────────────────────────
+Figure~\ref{fig:sprint2_activity} presents the activity diagram modeling the scanning process.
+
+\begin{figure}[H]
+	\centering
+	\optionalimage[0.82\textwidth]{chap_4/images/sp2 act diagram (1).png}{Activity Diagram for Scanning}
+	\caption{\textit{Activity Diagram for Scanning Process}}
+	\label{fig:sprint2_activity}
+\end{figure}
+
+% ────────────────────────────────────────────────────────────
+\subsection{Class Diagram}
+% ────────────────────────────────────────────────────────────
+Figure~\ref{fig:sprint2_class} shows the conceptual class diagram for the entities managed during this sprint.
+
+\begin{figure}[H]
+	\centering
+	\optionalimage[0.55\textwidth]{chap_4/images/sp2 class.png}{Sprint 2 Class Diagram}
+	\caption{\textit{Conceptual Class Diagram for Sprint 2}}
+	\label{fig:sprint2_class}
+\end{figure}
+
+% ────────────────────────────────────────────────────────────
+\subsection{Sequence Diagram}
+% ────────────────────────────────────────────────────────────
+Figure~\ref{fig:sprint2_seq_scan} outlines the interactions between the React client, the Flask API, the Deep Learning Prediction Service, and the MongoDB database during an active scan request.
+
+\begin{figure}[H]
+	\centering
+	\optionalimage[0.85\textwidth]{chap_4/images/seq sp2 (1).png}{Scanning Sequence Diagram}
+	\caption{\textit{Sequence Diagram: Scanning and Prediction Flow}}
+	\label{fig:sprint2_seq_scan}
+\end{figure}
+
+% ============================================================
+\section{Tasks}
+% ============================================================
+The specific development tasks required to fulfill the objectives of Sprint 2 are defined in the sprint backlog below.
+
+\begin{table}[H]
+	\centering
+	\small
+	\renewcommand{\arraystretch}{1.2}
+	\begin{tabular}{|>{\centering\arraybackslash}p{0.8cm}|>{\raggedright\arraybackslash}p{4.5cm}|>{\raggedright\arraybackslash}p{6.8cm}|}
+		\hline
+		\rowcolor[HTML]{1F3864}
+		{\color{white}\textbf{ID}} & {\color{white}\textbf{User Story}} & {\color{white}\textbf{Task Description}} \\
+		\hline
+		\textbf{5} & As a user, I want to upload/capture a skin lesion image and optionally pinpoint its location on a body map. & Design the Image Upload component (drag/drop and camera capture). \\
+		\cline{3-3}
+		& & Develop the interactive SVG Body Map selector. \\
+		\hline
+		\textbf{6} & As a user, I want to receive an AI-powered preliminary diagnosis with confidence scores. & Develop the Flask prediction route (/upload-diagnosis). \\
+		\cline{3-3}
+		& & Integrate the pre-trained Xception model into the Flask backend. \\
+		\hline
+		\textbf{7} & As a user, I want to view a visual heatmap over my image to understand exactly which areas the AI analyzed. & Implement the Grad-CAM extraction script targeting the final convolutional layer. \\
+		\cline{3-3}
+		& & Develop the Results Display UI to render the diagnoses and base64 heatmap overlays. \\
+		\hline
+	\end{tabular}
+	\caption{\textit{Sprint 2 Backlog}}
+	\label{tab:sprint2_backlog}
+\end{table}
+
+% ============================================================
+\section{Development}
+% ============================================================
+This section showcases the developed user interfaces for the scanning process and validates the backend logic through API testing.
+
+% ────────────────────────────────────────────────────────────
+\subsection{User Interfaces}
+% ────────────────────────────────────────────────────────────
+
+\paragraph{Scan and Body Map Interface}
+The upload interface offers a clean drag-and-drop zone. Alongside the image upload, users interact with an SVG-based Body Map component to optionally select the general location of the lesion, which provides helpful medical context. Figure~\ref{fig:sp2_body} and Figure~\ref{fig:ui_scan} present the interactive body map and the scan interface, respectively.
+
+\begin{figure}[H]
+	\centering
+	\optionalimage[0.50\textwidth]{chap_4/images/body.png}{Interactive Body Map}
+	\caption{\textit{Interactive Body Map for Scan Location}}
+	\label{fig:sp2_body}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\optionalimage[0.50\textwidth]{chap_4/images/upload_pic.png}{Scan Interface}
+	\caption{\textit{Skin Lesion Image Upload Interface}}
+	\label{fig:ui_scan}
+\end{figure}
+
+\paragraph{Results and Explanation Interface}
+Once the prediction is processed, the system transitions to the Results Display. This interface prominently shows the uploaded image alongside the generated Grad-CAM heatmap, making the AI's focal points visually explicit. It also details the primary and secondary diagnoses with their respective confidence scores. Figure~\ref{fig:ui_results} shows this results interface.
+
+\begin{figure}[H]
+	\centering
+	\optionalimage[0.85\textwidth]{chap_4/images/results.png}{Results Interface}
+	\caption{\textit{Diagnostic Results Display}}
+	\label{fig:ui_results}
+\end{figure}
+
+% ────────────────────────────────────────────────────────────
+\subsection{API Testing}
+% ────────────────────────────────────────────────────────────
+The deep learning pipeline was verified using Postman by targeting the \texttt{/api/upload-diagnosis} endpoint.
+
+\paragraph{Inference Endpoint Validation}
+Uploading a valid dermoscopic image via a \texttt{multipart/form-data} POST request successfully triggers the prediction service. The endpoint processes the image through the Xception model and returns a JSON payload containing the \texttt{diagnosis}, \texttt{confidence}, \texttt{diagnosis\_2}, and a \texttt{grad\_cam\_image} formatted as a Base64 string (Status 200 OK). Figure~\ref{fig:api_scan} shows the Postman response from the inference endpoint.
+
+\begin{figure}[H]
+	\centering
+	\optionalimage[0.85\textwidth]{chap_4/images/api_scan.png}{Postman Scan Test}
+	\caption{\textit{Postman Test: Deep Learning Inference API}}
+	\label{fig:api_scan}
+\end{figure}
+
+% ============================================================
+\section{AI Model Development}
+% ============================================================
+The intelligence of the DermaAI platform relies on a highly optimized Convolutional
+Neural Network pipeline. This section provides an in-depth account of all decisions
+made during the design, training, and evaluation phases, grounded in the actual
+experimental results obtained from the training notebook~\cite{HAM10000, TensorFlow}.
+
+% ────────────────────────────────────────────────────────────
+\subsection{Dataset: HAM10000}
+% ────────────────────────────────────────────────────────────
+The model was trained on the \textbf{HAM10000} (Human Against Machine with 10,000
+training images) dataset~\cite{HAM10000}, the internationally recognized benchmark
+for dermatological AI research. It contains \textbf{10,015} dermoscopic images across
+\textbf{7 clinically relevant diagnostic classes}. The dataset was partitioned using
+stratified sampling to preserve class distribution ratios across all splits, as
+summarized in Table~\ref{tab:dataset_split}.
+
+\begin{table}[H]
+	\centering
+	\renewcommand{\arraystretch}{1.5}
+	\begin{tabular}{|l|c|c|l|}
+		\hline
+		\rowcolor[HTML]{1F3864}
+		{\color{white}\textbf{Split}} &
+		{\color{white}\textbf{Images}} &
+		{\color{white}\textbf{Ratio}} &
+		{\color{white}\textbf{Purpose}} \\
+		\hline
+		Training   & 8,012 & 80\% & Model weight optimization \\
+		\hline
+		Validation & 1,001 & 10\% & Hyperparameter tuning \& early stopping \\
+		\hline
+		Test       & 1,002 & 10\% & Final unbiased evaluation \\
+		\hline
+		\textbf{Total} & \textbf{10,015} & \textbf{100\%} & \\
+		\hline
+	\end{tabular}
+	\caption{\textit{HAM10000 Dataset Split Distribution}}
+	\label{tab:dataset_split}
+\end{table}
+
+The class distribution within the raw training set is severely imbalanced, as shown
+in Table~\ref{tab:class_dist}. The dominant class (NV --- Melanocytic Nevi) accounts
+for 66.95\% of training samples, while rare classes such as Dermatofibroma (DF) and
+Vascular Lesions (VASC) represent less than 2\% each. A naive model trained on this
+distribution would be strongly biased toward the majority class, producing clinically
+unreliable results for rare but dangerous conditions.
+
+\begin{table}[H]
+	\centering
+	\renewcommand{\arraystretch}{1.5}
+	\begin{tabular}{|l|l|c|c|}
+		\hline
+		\rowcolor[HTML]{1F3864}
+		{\color{white}\textbf{Code}} &
+		{\color{white}\textbf{Class Name}} &
+		{\color{white}\textbf{Train Samples}} &
+		{\color{white}\textbf{\% of Training Set}} \\
+		\hline
+		NV    & Melanocytic Nevi (Benign mole)      & 5,364 & 66.95\% \\
+		\hline
+		MEL   & Melanoma (Malignant)                &   890 & 11.11\% \\
+		\hline
+		BKL   & Benign Keratosis-like Lesions       &   879 & 10.97\% \\
+		\hline
+		BCC   & Basal Cell Carcinoma                &   411 &  5.13\% \\
+		\hline
+		AKIEC & Actinic Keratoses                   &   262 &  3.27\% \\
+		\hline
+		VASC  & Vascular Lesions                    &   114 &  1.42\% \\
+		\hline
+		DF    & Dermatofibroma                      &    92 &  1.15\% \\
+		\hline
+	\end{tabular}
+	\caption{\textit{Raw Class Distribution in the Training Set}}
+	\label{tab:class_dist}
+\end{table}
+
+Figure~\ref{fig:dataset_samples} presents representative dermoscopic images from
+each of the seven diagnostic classes, illustrating the high degree of visual
+similarity between several malignant and benign lesion types that makes this
+classification task clinically challenging.
+
+\begin{figure}[H]
+	\centering
+	\optionalimage[0.85\textwidth]{chap_4/images/dataset_samples.png}{Representative Dataset Samples}
+	\caption{\textit{Representative Samples for the Seven Diagnostic Classes}}
+	\label{fig:dataset_samples}
+\end{figure}
+
+The sample distribution across each of the seven diagnostic classes illustrates the severe class imbalance and the high dominance of the NV class.
+
+% ────────────────────────────────────────────────────────────
+\subsection{Class Imbalance Strategy}
+% ────────────────────────────────────────────────────────────
+To counteract the severe class imbalance, a data-level oversampling strategy was
+implemented via a custom \texttt{balance()} function. A target of \textbf{1,006
+	samples per class} was established. For all minority classes, the function uses
+Keras \texttt{ImageDataGenerator} to synthesize augmented copies using the
+following transformations:
+
+\begin{itemize}
+	\item Horizontal flips.
+	\item Random rotations up to $20^{\circ}$.
+	\item Width and height shifts up to 20\%.
+	\item Zoom augmentation up to 20\%.
+\end{itemize}
+
+After balancing, the effective training set grew from 8,012 raw images to
+\textbf{7,042 balanced images} (7 classes $\times$ 1,006 samples each). All images
+were resized to a fixed resolution of \textbf{480 $\times$ 480 pixels} with 3 RGB
+channels, providing sufficient spatial detail for the depthwise separable convolutions
+to extract fine-grained skin texture features.
+
+% ────────────────────────────────────────────────────────────
+\subsection{Architecture Selection: Xception Model}
+% ────────────────────────────────────────────────────────────
+The architecture selection was made following a comparative evaluation of leading CNN models available in the Keras Applications module (such as VGG16, ResNet50, and EfficientNet). \textbf{Xception}~\cite{Xception} was ultimately selected for the following reasons:
+\begin{itemize}
+	\item \textbf{Depthwise Separable Convolutions:} Xception decomposes standard
+	convolutions into separate depthwise and pointwise steps, reducing
+	parameter count while improving representational capacity --- critical for
+	distinguishing subtle texture differences between malignant and benign lesions.
+	\item \textbf{ImageNet Pre-trained Weights:} The backbone was initialized with
+	ImageNet weights, providing rich generic feature representations (edges,
+	gradients, textures) that transfer effectively to the medical imaging domain.
+	\item \textbf{Grad-CAM Compatibility:} The architecture's final convolutional
+	layer (\texttt{block14\_sepconv2\_act}) produces spatially meaningful 2D
+	feature maps that directly feed the Grad-CAM localization algorithm.
+\end{itemize}
+
+A custom classifier head was appended to the Xception backbone: a
+\texttt{BatchNormalization} layer, followed by two \texttt{Dense} layers (256 and
+128 neurons) with \texttt{Swish} activation, L2 regularization
+($\lambda = 0.0016$), and \texttt{Dropout} (rates 0.5 and 0.2 respectively),
+terminated by a 7-neuron \texttt{Softmax} output layer.
+
+% ────────────────────────────────────────────────────────────
+\subsection{Training Configuration \& Adaptive LR Strategy}
+% ────────────────────────────────────────────────────────────
+The model was compiled using the \textbf{AdamW} optimizer (Adam with decoupled
+weight decay), which prevents weight decay from interfering with the gradient
+update step and generally improves generalization~\cite{TensorFlow}. The model was trained using Categorical Cross-Entropy loss, a batch size of 16, and an initial learning rate of 0.001 over a maximum of 50 epochs.
+
+A custom \textbf{Learning Rate Annealing (LRA)} callback was implemented to
+dynamically adapt the learning rate. When training accuracy is below 90\%, the
+callback monitors training accuracy. Once the 90\% threshold is surpassed, the
+monitor switches to \textbf{validation loss}, preventing the model from
+overfitting to the training distribution during the fine-tuning phase.
+
+% ────────────────────────────────────────────────────────────
+\subsection{Training Progress}
+% ────────────────────────────────────────────────────────────
+Training ran for \textbf{18 epochs} before the early stopping criterion was
+triggered (3 consecutive learning rate adjustments without validation improvement).
+The total training duration was \textbf{1 hour, 22 minutes, and 3.89 seconds},
+with each epoch averaging approximately 271 seconds.
+
+
+
+Figure~\ref{fig:sprint2_training_curves} shows the complete training and validation
+loss and accuracy progression across all 18 epochs, clearly showing convergence and
+the effect of adaptive learning rate reductions.
+
+\begin{figure}[H]
+	\centering
+	\optionalimage[0.85\textwidth]{chap_4/images/graph.png}{Training and Validation Curves}
+	\caption{\textit{Training and Validation Loss \& Accuracy Curves (18 Epochs)}}
+	\label{fig:sprint2_training_curves}
+\end{figure}
+
+% ────────────────────────────────────────────────────────────
+\subsection{Evaluation on the Test Set}
+% ────────────────────────────────────────────────────────────
+The final model was evaluated on the held-out test set of \textbf{1,002 images},
+achieving an overall test accuracy of \textbf{83.83\%}. The detailed per-class
+performance metrics are presented in Table~\ref{tab:classification_report}.
+
+\begin{table}[H]
+	\centering
+	\renewcommand{\arraystretch}{1.5}
+	\begin{tabular}{|l|c|c|c|c|}
+		\hline
+		\rowcolor[HTML]{1F3864}
+		{\color{white}\textbf{Class}} &
+		{\color{white}\textbf{Precision}} &
+		{\color{white}\textbf{Recall}} &
+		{\color{white}\textbf{F1-Score}} &
+		{\color{white}\textbf{Test Samples}} \\
+		\hline
+		AKIEC & 0.71 & 0.69 & 0.70 &  32 \\
+		\hline
+		BCC   & 0.83 & 0.85 & 0.84 &  52 \\
+		\hline
+		BKL   & 0.64 & 0.91 & 0.75 & 110 \\
+		\hline
+		DF    & 0.67 & 0.36 & 0.47 &  11 \\
+		\hline
+		MEL   & 0.54 & 0.62 & 0.58 & 112 \\
+		\hline
+		NV    & 0.96 & 0.87 & 0.91 & 671 \\
+		\hline
+		VASC  & 0.93 & 1.00 & 0.97 &  14 \\
+		\hline
+		\rowcolor[HTML]{EEF6FF}
+		\textbf{Weighted Avg} & \textbf{0.86} & \textbf{0.84} & \textbf{0.84} & \textbf{1,002} \\
+		\hline
+		\rowcolor[HTML]{EEF6FF}
+		\textbf{Macro Avg}    & \textbf{0.75} & \textbf{0.76} & \textbf{0.75} & \textbf{1,002} \\
+		\hline
+	\end{tabular}
+	\caption{\textit{Per-Class Classification Report on the 1,002-Image Test Set}}
+	\label{tab:classification_report}
+\end{table}
+
+Key observations from the results include:
+\begin{itemize}
+	\item \textbf{NV} achieves the highest F1-score (0.91) due to its dominant
+	representation in the dataset.
+	\item \textbf{VASC} achieves perfect recall (1.00), demonstrating that the
+	augmentation strategy successfully compensated for its very limited
+	original sample count (114 training images).
+	\item \textbf{MEL (Melanoma)} achieves a recall of 0.62. From a clinical
+	safety perspective, this is the most critical metric: a missed melanoma
+	is far more dangerous than a false positive. The platform therefore
+	displays an explicit ``Consult a specialist'' advisory for all
+	predictions with confidence below 85\%.
+	\item \textbf{DF (Dermatofibroma)} has the lowest performance (F1 = 0.47)
+	due to its very limited support (only 11 test samples), making
+	statistical evaluation unreliable for this class.
+\end{itemize}
+
+Figure~\ref{fig:confusion_matrix} presents the confusion matrix, providing a
+visual breakdown of correct predictions versus misclassifications across all
+seven classes.
+
+\begin{figure}[H]
+	\centering
+	\optionalimage[0.78\textwidth]{chap_4/images/confusion_matrix.png}{Confusion Matrix}
+	\caption{\textit{Confusion Matrix on the 1,002-Image Test Set}}
+	\label{fig:confusion_matrix}
+\end{figure}
+
+% ────────────────────────────────────────────────────────────
+\subsection{Model Explainability: Grad-CAM}
+% ────────────────────────────────────────────────────────────
+To establish clinical trust, the platform does not operate as a ``black box.''
+The \textbf{Gradient-weighted Class Activation Mapping (Grad-CAM)}
+algorithm~\cite{Selvaraju2017} was implemented. The process involves: (1)~a
+forward pass through the full Xception network; (2)~extraction of the spatial
+gradient of the predicted class score with respect to the output of the final
+convolutional layer (\texttt{block14\_sepconv2\_act}); (3)~computation of a
+weighted sum of the feature maps using these gradients as importance weights;
+(4)~bilinear upsampling to the original image resolution; and (5)~application
+of a \texttt{COLORMAP\_JET} color overlay where red areas indicate the regions
+most influential for the prediction.
+
+% ────────────────────────────────────────────────────────────
+\subsection{Inference Performance}
+% ────────────────────────────────────────────────────────────
+The deployed model is loaded once at Flask server startup (taking approximately 10 seconds) and held in memory. During active operation, the total API response time (end-to-end), including image preprocessing, Xception inference, and Grad-CAM generation, averages under 2 seconds.
+
+% ============================================================
+\section{Progress Tracking}
+% ============================================================
+Task execution was monitored via the Trello Kanban board. Figure~\ref{fig:trello_sprint2} captures the state of the board at the completion of the sprint, verifying that all AI integration and frontend scanning tasks were moved to the "Done" list.
+
+\begin{figure}[H]
+	\centering
+	\optionalimage[0.40\textwidth]{chap_4/images/trello_sprint2.png}{Trello Sprint 2}
+	\caption{\textit{Trello Board at the End of Sprint 2}}
+	\label{fig:trello_sprint2}
+\end{figure}
+
+% ============================================================
+\section{Conclusion}
+% ============================================================
+Sprint 2 successfully delivered the core diagnostic functionality of the DermaAI platform through a fine-tuned Xception model. By pairing high-accuracy predictions with transparent Grad-CAM visualizations, the system provides explainable and trustworthy assessments. With the scanning engine operational, the next chapter focuses on expanding user assistance through an AI chatbot.

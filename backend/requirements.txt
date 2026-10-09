@@ -1,0 +1,28 @@
+# Core ML Libraries
+tensorflow==2.16.1
+keras==3.3.3
+numpy==1.26.4
+pandas==2.2.2
+scikit-learn==1.4.2
+matplotlib==3.8.4
+scipy==1.13.0
+Pillow==10.3.0
+opencv-python==4.9.0.80
+
+# API / Backend Libraries
+flask==3.0.3
+flask-cors==4.0.1
+pymongo==4.7.2
+python-dotenv==1.0.1
+dnspython>=2.6.0  # Required for Atlas SRV connection
+google-genai
+flask-jwt-extended==4.6.0
+bcrypt==4.1.2
+beautifulsoup4
+requests
+transformers
+torch
+tqdm
+pydantic
+flask-limiter
+accelerate>=1.0.0

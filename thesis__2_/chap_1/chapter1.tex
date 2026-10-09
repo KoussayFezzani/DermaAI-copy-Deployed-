@@ -1,0 +1,615 @@
+	% ──────────────────────────────────────────────
+	%  CHAPTER 1 CONTENT
+	%  (All formatting/preamble is defined in main.tex)
+	% ──────────────────────────────────────────────
+	
+	% ══════════════════════════════════════════════
+	%  DOCUMENT
+	% ══════════════════════════════════════════════
+	
+	% ──────────────────────────────────────────────
+	%  CHAPTER TITLE PAGE  (ee style: huge bold text,
+	%  centered on white page, illustration below)
+	% ──────────────────────────────────────────────
+\chapter[Chapter 1: General Framework Presentation and Project and Requirements]{Chapter 1: General Framework of the\\[12pt]
+             Project and\\[12pt]
+             Requirements}
+\begin{center}
+  \includegraphics[width=0.85\textwidth, keepaspectratio]{chapter1_cover.png}
+\end{center}
+    \newpage
+	
+	
+	% ──────────────────────────────────────────────
+	%  1.1  INTRODUCTION
+	% ──────────────────────────────────────────────
+	\section{Introduction}
+	
+	This chapter establishes the foundational framework for the DermaAI platform developed at Aura Dynamic. It outlines the project context, existing market limitations, and core objectives. Furthermore, it details the agile methodology, system requirements, and primary actors driving the technical implementation of the solution.
+	
+	% ──────────────────────────────────────────────
+	%  1.2  PROJECT FRAMEWORK
+	% ──────────────────────────────────────────────
+	\section{Project Framework}
+	
+	This project is a Graduation Project carried out within Aura Dynamic,
+	in partial fulfillment of the requirements for the Bachelor's degree in Big Data and Data
+	Analysis at the Higher Institute of Computer Science and Multimedia of Sfax. It involves
+	designing and developing DermaAI, a web-based platform for AI-assisted skin lesion
+	screening and follow-up, structured around three main actors: user, guest, and admin.
+	This solution aims to automate preliminary skin lesion assessment and improve
+	accessibility to dermatological screening.
+	
+	% ─────────────────────────────
+	\subsection{Overview of the Host Organization}
+	
+	Aura Dynamic is the host company where this graduation project was carried out. Its profile, main
+	services, and areas of expertise are outlined below.
+	
+	% ─────────────────────────────
+	\subsubsection{General Information}
+	
+	Aura Dynamic is a Tunisian company specialized in the design and development of digital
+	solutions, including web and mobile applications. The company focuses on transforming
+	client ideas into reliable, scalable, and modern digital products.
+	
+	Aura Dynamic supports projects across the full development lifecycle, from needs analysis
+	and system design to development, testing, and deployment. The company operates in a
+	dynamic and innovation-driven environment, with growing interest in integrating modern
+	technologies such as artificial intelligence into its solutions.
+	The company's professional profile is available on LinkedIn: \url{https://www.linkedin.com/company/aura-dynamic}.
+	
+	The Aura Dynamic company logo is shown in Figure~\ref{fig:aura_logo}.
+	
+	\begin{figure}[H]
+	  \centering
+	  \optionalimage[0.34\textwidth]{chap_1/images/aura_dynamic_logo.png}{Aura Dynamic logo}
+	  \caption{Aura Dynamic Company Logo}
+	  \label{fig:aura_logo}
+	\end{figure}
+	% ─────────────────────────────
+	\subsubsection{Services and Areas of Expertise}
+	
+	Aura Dynamic mainly provides the following services:
+	
+	\begin{itemize}
+	  \item Design and development of web applications.
+	  \item Development of mobile applications.
+	  \item UI/UX design and user experience optimization.
+	  \item Development of business management systems (ERP, CRM, etc.).
+	  \item Deployment and maintenance of digital solutions.
+	\end{itemize}
+	
+	The company's work focuses on several key domains:
+	
+	\begin{itemize}
+	  \item Web development.
+	  \item Mobile development.
+	  \item Business process digitalization.
+	  \item System integration.
+	  \item Artificial intelligence (emerging focus).
+	\end{itemize}
+	
+	
+	\subsection{General Context of the Project}
+	
+	With the rapid growth of AI applications in healthcare and the growing adoption of
+	information technologies, medical institutions and individuals are looking for intelligent
+	solutions to enhance access to dermatological care. Skin lesion screening, often performed
+	manually by specialists, is time-consuming, susceptible to subjectivity, and geographically
+	limited. This context highlights the need for an integrated and automated AI-powered
+	platform capable of effectively supporting preliminary assessment and clinical
+	decision-making.
+	
+	% ─────────────────────────────
+	\subsubsection{Background}
+	
+	Skin cancer, including melanoma, represents a growing global public-health burden,
+	with around 325,000 new cases and 57,000 deaths recorded in 2020, and incidence
+	projected to rise through 2045~\cite{Arnold2022, Liu2024}. Early detection
+	significantly improves outcomes, with five-year survival rates exceeding 99\% for
+	localized melanoma versus only 35\% for advanced stages~\cite{SkinCancerOrg}.
+	Deep learning approaches have shown strong performance in skin lesion classification,
+	marking significant progress in AI-assisted dermatology~\cite{Wu2022, Kassem2021,
+	Debelee2023}. A dedicated intelligent screening platform provides an optimal
+	response to these challenges by offering:
+	
+	\begin{itemize}
+	  \item Centralized AI-powered analysis enabling more consistent and reliable preliminary
+	        assessments.
+	  \item Near-instant screening results that support triage and referral decisions.
+	  \item Interpretable outputs providing visual explanations alongside predictions,
+	        improving clinical trust.
+	\end{itemize}
+	
+	As a core component of this project, the DermaAI platform provides an automated workflow for uploading skin lesion images, generating AI predictions with confidence scores, producing visual explanations, and generating structured PDF reports for users.
+	
+	% ─────────────────────────────
+	\subsubsection{Advantages of the Proposed Digital Approach}
+	
+	Developing an AI-powered screening platform provides several strategic and clinical
+	benefits:
+	
+	\begin{itemize}
+	  \item \textbf{Improved Accessibility:} Users can access a preliminary screening tool
+	        without requiring an immediate specialist consultation, reducing dependence on
+	        specialist availability and lowering consultation costs.
+	  \item \textbf{Faster Preliminary Assessment:} The platform provides near-instant
+	        preliminary results, supporting triage decisions and reducing waiting times.
+	  \item \textbf{Interpretable AI Outputs:} Visual explanations highlight the analyzed
+	        region, making AI predictions more transparent and clinically useful.
+	\end{itemize}
+	
+	% ──────────────────────────────────────────────
+	%  1.3  PROBLEM STATEMENT AND STUDY OF THE
+	%       EXISTING SITUATION
+	% ──────────────────────────────────────────────
+	\section{Problem Statement}
+	
+	Skin lesion screening still faces accessibility limits, diagnostic delays, and important gaps
+	in current digital tools. The following analysis highlights the main issues and the limits
+	of existing solutions.
+	
+	% ─────────────────────────────
+	\subsection{Problem Statement}
+	
+	Skin cancer is one of the most common types of cancer globally~\cite{SkinCancerOrg},
+	yet early and accurate detection significantly increases survival rates and reduces
+	treatment costs~\cite{Abdalla2024}. The traditional diagnostic process relies heavily
+	on visual inspection performed by specialists, making results sensitive to human error
+	and variations in clinical experience~\cite{Kassem2021}.
+	
+	The main challenges currently faced include:
+	
+	\begin{itemize}
+	  \item Long waiting times before consulting a dermatologist, particularly in rural
+	        or underserved areas suffering from a shortage of specialized
+	        personnel~\cite{JAAD2024}.
+	  \item Unreliable self-diagnosis through internet searches or generic symptom
+	        checkers, which may cause unnecessary anxiety or dangerous delays in
+	        seeking medical advice.
+	  \item Limited access to tools capable of providing a reliable preliminary
+	        assessment to help patients decide whether urgent consultation is needed.
+	\end{itemize}
+	
+	These constraints highlight the need for an accessible, reliable, and user-friendly
+	platform capable of supporting preliminary skin lesion assessment and guiding patients
+	toward appropriate medical care~\cite{Debelee2023}.
+	% ─────────────────────────────
+	\subsection{Existing Solutions}
+	
+	Reviewing existing platforms helps identify the strengths already available on the market
+	and the gaps DermaAI still needs to address.
+	
+	In recent years, several applications and tools have been developed to assist in skin
+	cancer detection by combining artificial intelligence, computer vision, and mobile
+	technology. The objective of this comparative analysis is to understand the strengths and
+	weaknesses of existing solutions in order to better position DermaAI.
+	
+	The following platforms were primarily evaluated:
+	
+	\paragraph{``SkinVision'' Platform}
+	
+	SkinVision~\cite{SkinVision} is a consumer-facing mobile application that uses AI to assess skin lesion images for risk levels. It offers image-based risk classification and referral advice. However, it relies on a cloud-based service and does not provide visual explanations, making it unsuitable for clinical interpretation. Figure~\ref{fig:skinvision} shows the home interface of SkinVision.
+	
+	\begin{figure}[H]
+	  \centering
+	  \optionalimage[0.85\textwidth]{chap_1/images/skinvision_home.png}{SkinVision home interface}
+	  \caption{\textit{Home Interface of SkinVision~\cite{SkinVision}}}
+	  \label{fig:skinvision}
+	\end{figure}
+	
+	\paragraph{``FirstDerm'' Platform}
+	
+	FirstDerm~\cite{FirstDerm} is a dermatology-oriented application that allows users to submit skin photos for assessment. It follows a pay-to-see-results model and does not provide visual explanations, which limits transparency for users. Figure~\ref{fig:firstderm} illustrates the home interface of FirstDerm.
+	
+	\begin{figure}[H]
+	  \centering
+	  \optionalimage[0.85\textwidth]{chap_1/images/firstderm_home.png}{FirstDerm home interface}
+	  \caption{\textit{Home Interface of FirstDerm~\cite{FirstDerm}}}
+	  \label{fig:firstderm}
+	\end{figure}
+	
+	% ─────────────────────────────
+	\subsubsection{Limitations of Existing Solutions}
+	
+	After reviewing the platforms, the following limitations were identified:
+	
+	\begin{itemize}
+	  \item \textbf{Limitations of the ``SkinVision'' platform:}
+	    \begin{itemize}
+	      \item No visual explanation: The platform provides a risk level without highlighting
+	            the region analyzed, limiting clinical interpretability.
+	      \item No local deployment: The solution requires continuous cloud connectivity and
+	            cannot function in low-bandwidth environments.
+	      \item No structured clinical reporting: Results are not formatted as clinical
+	            documents suitable for medical handover or patient records.
+	    \end{itemize}
+	
+	  \item \textbf{Limitations of the ``FirstDerm'' platform:}
+	    \begin{itemize}
+	      \item Paid access to results: Users must pay to view the assessment, which reduces
+	            accessibility for repeated or large-scale screening.
+	      \item No explainability: The platform does not provide visual explanations to help
+	            users better understand the result.
+	    \end{itemize}
+	\end{itemize}
+	
+
+	% ──────────────────────────────────────────────
+	%  1.4  OBJECTIVES AND PROPOSED SOLUTIONS
+	% ──────────────────────────────────────────────
+	\section{Proposed Solution}
+	
+	After a thorough analysis of existing solutions, the main objective of this project is to
+	design and develop DermaAI, a web-based platform for AI-assisted skin lesion screening
+	and follow-up. This solution aims to provide an accessible, explainable, and locally
+	deployable AI platform aligned with the needs of the user, guest, and admin actors.
+	Table~\ref{tab:objectives} summarizes the identified gaps and the corresponding
+	solutions retained for DermaAI.
+	
+	\begin{table}[H]
+	\centering
+	
+	\renewcommand{\arraystretch}{1.4}
+	\begin{tabular}{|p{5.5cm}|p{7.5cm}|}
+	\hline
+	\rowcolor[HTML]{1F3864}
+	{\color{white}\textbf{Identified Gap}} &
+	{\color{white}\textbf{Proposed Solution}} \\
+	\hline
+	Lack of explainability in AI results &
+	  Visual and textual explanations to make screening outcomes easier to interpret. \\
+	\hline
+	No guidance for users after screening &
+	  Interactive AI chatbot to answer dermatology-related questions. \\
+	\hline
+	No structured reporting or follow-up &
+	  Comparison of scan history over time and generation of structured PDF reports.\\
+	\hline
+	Language barriers &
+	  Multilingual support for English, French, and Arabic. \\\hline
+	\end{tabular}
+	\caption{\textit{Identified Gaps and Proposed Solutions}}
+	\label{tab:objectives}
+	\end{table}
+	
+	% ──────────────────────────────────────────────
+	%  1.5  DEVELOPMENT METHODOLOGY CHOICE
+	% ──────────────────────────────────────────────
+	\section{Methodology}
+	
+	The development of a software project requires a rigorous methodology capable of managing
+	complexity, ensuring quality, and respecting deadlines. Traditional linear approaches such
+	as the Waterfall model are often too rigid for projects whose requirements evolve during
+	implementation. This is particularly true for DermaAI, where several platform components
+	must be refined iteratively.
+	
+	For this reason, an agile approach was adopted, which promotes incremental delivery,
+	continuous feedback, adaptability, and better risk management. During the methodological
+	study, several agile frameworks were compared in order to identify the one
+	that best fits the organizational and project constraints of DermaAI. The comparison is presented in Table~\ref{tab:agile} below.
+	
+	\begin{table}[H]
+	\centering
+	
+	\renewcommand{\arraystretch}{1.4}
+	\begin{tabular}{|p{2cm}|p{5.5cm}|p{5.5cm}|}
+	\hline
+	\textbf{} & \textbf{Advantages} & \textbf{Disadvantages} \\
+	\hline
+	XP &
+	  \begin{minipage}[t]{\linewidth}
+	    \begin{itemize}[noitemsep, topsep=2pt, leftmargin=1em]
+	      \item[-] Pair programming
+	      \item[-] Test-driven development
+	    \end{itemize}
+	  \end{minipage}
+	  &
+	  \begin{minipage}[t]{\linewidth}
+	    \begin{itemize}[noitemsep, topsep=2pt, leftmargin=1em]
+	      \item[-] Maintenance challenges
+	      \item[-] Lack of an initial analysis phase
+	    \end{itemize}
+	  \end{minipage}
+	  \\[30pt]
+	\hline
+	SCRUM &
+	  \begin{minipage}[t]{\linewidth}
+	    \begin{itemize}[noitemsep, topsep=2pt, leftmargin=1em]
+	      \item[-] Clear timeboxing
+	      \item[-] Strong team coordination
+	      \item[-] Incremental delivery through sprints
+	    \end{itemize}
+	  \end{minipage}
+	  &
+	  \begin{minipage}[t]{\linewidth}
+	    \begin{itemize}[noitemsep, topsep=2pt, leftmargin=1em]
+	      \item[-] Scope changes are discouraged during an active sprint
+	    \end{itemize}
+	  \end{minipage}
+	  \\[30pt]
+	\hline
+	Kanban &
+	  \begin{minipage}[t]{\linewidth}
+	    \begin{itemize}[noitemsep, topsep=2pt, leftmargin=1em]
+	      \item[-] Very easy to implement
+	      \item[-] Continuous task flow
+	      \item[-] Visual task management
+	    \end{itemize}
+	  \end{minipage}
+	
+	  &
+	  \begin{minipage}[t]{\linewidth}
+	    \begin{itemize}[noitemsep, topsep=2pt, leftmargin=1em]
+	      \item[-] Lacks strategic vision
+	      \item[-] Limited flexibility to meet specific client demands
+	    \end{itemize}
+	  \end{minipage}
+	  \\[30pt]
+	\hline
+	\end{tabular}
+	\caption{\textit{Comparative Table of Agile Methods}}
+	\label{tab:agile}
+	
+	\end{table}
+	% ─────────────────────────────
+	\subsection{SCRUM Methodology}
+	
+	The Scrum methodology was selected for this graduation project. Scrum is an agile framework based on three pillars: transparency, inspection, and adaptation~\cite{Schwaber2020}. It structures development into short and manageable iterations, generally lasting two to three weeks, each ending with a potentially usable increment of the product. The roles, ceremonies, and artifacts defined by the Scrum framework provide a clear structure for incremental delivery, continuous feedback, and responsive adaptation to evolving requirements.
+	
+	For DermaAI, this approach is particularly suitable because it allows the progressive integration of the main components of the platform while continuously refining priorities through the Product Backlog. Figure~\ref{fig:scrum} illustrates the standard Scrum process flow.
+	
+	\begin{figure}[H]
+	  \centering
+	  \optionalimage[0.85\textwidth]{chap_1/images/scrum_process.jpg}{SCRUM process diagram}
+	  \caption{\textit{SCRUM Process~\cite{Schwaber2020}}}
+	  \label{fig:scrum}
+	\end{figure}
+	
+	As shown in Figure~\ref{fig:scrum}, the Scrum framework defines three main roles:
+	
+	\begin{itemize}
+	  \item \textbf{Product Owner:} In most projects, the product owner represents the client.
+	        They define the desired product features and prioritize the backlog according to
+	        project needs.
+	
+	  \item \textbf{Scrum Master:} This role facilitates the application of the Scrum process
+	        by the team and helps maintain smooth collaboration throughout each sprint.
+	
+	  \item \textbf{Development Team:} This team consists of engineers and students
+	        responsible for producing the product, including the author of this graduation project.
+	\end{itemize}
+	
+	In practice, Sprint Planning, Daily Stand-ups, Sprint Reviews, and Sprint Retrospectives
+	ensure continuous communication, regular inspection of progress, and continuous
+	improvement throughout the project lifecycle.
+	
+	% ──────────────────────────────────────────────
+	%  1.6  REQUIREMENTS SPECIFICATION
+	% ──────────────────────────────────────────────
+	\section{Requirements Specification}
+	
+	DermaAI requires a clear definition of its expected features and operational constraints.
+	The requirements retained for the platform are grouped below into functional and
+	non-functional requirements.
+	
+	% ─────────────────────────────
+	\subsection{Functional Requirements}
+	
+	Functional requirements describe the actions the system must be capable of performing to
+	meet the defined objectives. The solution must provide a comprehensive set of features
+	adapted to the needs of each identified actor. To keep the use-cases model clear and
+	readable, similar operations are grouped under broader actions such as \textit{manage}
+	instead of listing each elementary action separately.
+	
+	The \textbf{User} must be able to:
+	
+	\begin{itemize}
+	  \item Manage their personal account, profile, and preferences.
+	  \item Submit a skin lesion image together with the relevant screening context.
+	  \item Consult screening results with supporting information and visual explanations.
+	  \item Manage personal screening records, including report download, history
+	        consultation, follow-up comparison, confidence trends, and record deletion.
+	  \item Interact with the digital assistant to obtain simplified skin-health related
+	        information.
+	\end{itemize}
+	
+	The \textbf{Guest} must be able to:
+	
+	\begin{itemize}
+	  \item Access the public pages of the platform.
+	  \item Manage access to the platform by creating an account or logging in securely.
+	  \item Consult educational content about skin diseases and recent dermatological news.
+	\end{itemize}
+	
+	The \textbf{Admin} must be able to:
+	
+	\begin{itemize}
+	  \item Monitor overall platform activity, usage trends, system health, and logs.
+	  \item Manage registered users, roles, and access rights.
+	  \item Manage administrative data, including report export, records, and backup
+	        resources.
+	\end{itemize}
+	
+	% ─────────────────────────────
+	\subsection{Non-Functional Requirements}
+	
+	Non-functional requirements represent the implicit expectations that the system must meet.
+	They define the main quality constraints that guide the design and operation of the
+	platform:
+	
+	\begin{itemize}
+	  \item[\textit{o}] \textbf{Usability / Interface Ergonomics:} The interfaces must be ergonomic,
+	        simple, clear, and responsive. They should follow a modern clinical design style
+	        with clean layouts and readable typography on both desktop and mobile devices.
+	
+	  \item[\textit{o}] \textbf{Performance:} The platform must remain performant, especially for
+	        essential operations such as image upload, screening, result display, and report
+	        generation, so that users can interact with the system smoothly on both desktop
+	        and mobile devices.
+	
+	  \item[\textit{o}] \textbf{Security and Privacy:} Security is a critical requirement for a
+	        health-related platform. The system must ensure secure authentication, access
+	        control, and proper protection of user data.
+	
+	  \item[\textit{o}] \textbf{Scalability:} The platform should support a growing number of users,
+	        images, and screening records without major redesign.
+	
+	  \item[\textit{o}] \textbf{Maintainability:} The application must rely on a modular and
+	        well-structured architecture, with clearly separated components, in order to
+	        simplify testing, debugging, maintenance, and the integration of future
+	        improvements.
+	
+	  \item[\textit{o}] \textbf{Availability and Reliability:} The application must remain
+	        accessible, stable, and dependable from any location, while remaining locally
+	        deployable and limiting dependency on external cloud services.
+	\end{itemize}
+	
+	% ─────────────────────────────
+	\subsection{Identification of Actors}
+	
+	DermaAI relies on three main actors, each with specific permissions and responsibilities.
+	Their roles are expressed through grouped use cases in order to avoid unnecessary detail
+	such as separating add, update, and delete actions when they belong to the same overall
+	management task:
+	
+	\begin{itemize}
+	  \item \textbf{User (also referred to as: Registered User, End User):}
+	    \begin{itemize}
+	      \item Submits skin lesion images and the related screening information.
+	      \item Consults screening results, supporting information, and visual explanations.
+	      \item Manages personal reports and screening history, including comparative
+	            follow-up data.
+	      \item Interacts with the digital assistant.
+	    \end{itemize}
+	
+	  \item \textbf{Guest (also referred to as: Visitor, Unauthenticated User):}
+	    \begin{itemize}
+	      \item Accesses public platform pages without authentication.
+	      \item Manages access to the platform by registering or authenticating.
+	      \item Consults educational content and recent dermatological news.
+	    \end{itemize}
+	
+	  \item \textbf{Admin (also referred to as: System Administrator, Platform Manager):}
+	    \begin{itemize}
+	      \item Manages users, roles, and access rights.
+	      \item Monitors system-wide analytics, usage statistics, and platform status.
+	      \item Manages administrative reports, records, and backup resources.
+	    \end{itemize}
+	\end{itemize}
+	
+	% ─────────────────────────────
+	\subsection{General Use-Cases Diagram}
+	
+	Based on the functional requirements defined above, a global use-cases diagram was constructed to visualize the interactions between each actor and the system. This diagram provides a high-level overview of the system's scope and serves as the primary reference for the more detailed sprint-level use-cases diagrams presented in the following chapters. Figure~\ref{fig:usecase} presents this global use-cases diagram.
+	
+	\begin{figure}[H]
+	  \centering
+	  \optionalimage[\textwidth]{chap_1/images/usecaseglobal.png}{Global use-cases diagram}
+	  \caption{\textit{Global Use-Cases Diagram}}
+	  \label{fig:usecase}
+	\end{figure}
+	
+	% ──────────────────────────────────────────────
+	%  1.7  SCRUM PROJECT MANAGEMENT
+	% ──────────────────────────────────────────────
+	\section{Scrum Project Management}
+	
+	To ensure the successful delivery of DermaAI, the SCRUM agile framework was adopted.
+	This approach allowed the iterative development of the main components of the platform while
+	progressively integrating them into a coherent solution.
+	
+	% ─────────────────────────────
+	\subsection{Scrum Team Identification}
+	
+	The project team is organized around the following operational roles,
+	as shown in Table~\ref{tab:teamroles}.
+	
+	\begin{table}[H]
+	\centering
+	{\setlength{\tabcolsep}{5pt}%
+	\renewcommand{\arraystretch}{1.4}%
+	\begin{tabular}{|p{7cm}|>{\centering\arraybackslash}p{6cm}|}
+	\hline
+	\rowcolor[HTML]{1F3864}
+	{\color{white}\textbf{User}} & {\color{white}\textbf{Scrum Roles}} \\
+	\hline
+	Mr.\ Omar Guetat                               & Scrum Master  \\
+	\hline
+	Koussay Fezzani                              & Development Team \\
+	\hline
+	\end{tabular}
+	}
+	\caption{\textit{Team and Roles}}
+	\label{tab:teamroles}
+	\end{table}
+	
+	% ─────────────────────────────
+	\subsection{Project Planning}
+	
+	Dividing the graduation project into sprint-based activity batches makes its structure easier to plan, track, and communicate. Four sprints were planned in total, each addressing a distinct thematic cluster of features. The duration and content of each sprint were defined based on task complexity and interdependency.
+	
+	% ─────────────────────────────
+	\subsection{Project Backlog}
+	
+	The product backlog groups the main features retained for DermaAI, together with
+	their corresponding user stories and priorities, as presented in Table~\ref{tab:backlog}.
+	{\setlength{\tabcolsep}{4pt}%
+	\renewcommand{\arraystretch}{1.35}%
+	\small
+	\begin{longtable}{|>{\centering\arraybackslash}p{0.6cm}|>{\raggedright\arraybackslash}p{3.9cm}|>{\raggedright\arraybackslash}p{6.9cm}|>{\centering\arraybackslash}p{1.7cm}|}
+	\hline
+	\rowcolor[HTML]{1F3864}
+	{\color{white}\textbf{}} &
+	{\color{white}\textbf{Functionality}} &
+	{\color{white}\textbf{User Story}} &
+	{\color{white}\textbf{Priority}} \\
+	\hline
+	\endfirsthead
+	\hline
+	\endhead
+	\hline
+	\endfoot
+	\hline
+	\endlastfoot
+	\textbf{1} & Sprint 1: Authentication \& Access Management &
+	  As a guest, I want to create an account or log in securely . & High \\
+	\cline{3-4}
+	 & & As a user, I want to switch the interface language (English, French, Arabic) to use the platform in my preferred language. & Medium \\
+	\cline{3-4}
+	 & & As a guest, I want to read up-to-date dermatological news and articles to stay informed. & Low \\
+	\hline
+	\textbf{2} & Sprint 2: AI Scan \& Diagnosis &
+	  As a user, I want to upload/Capture a skin lesion image and pinpoint its location on a body map to provide relevant screening context. & High \\
+	\cline{3-4}
+	 & & As a user, I want to receive an AI-powered preliminary diagnosis with confidence scores. & High \\
+	\cline{3-4}
+	 & & As a user, I want to view a visual heatmap over my image to understand exactly which areas the AI analyzed. & High \\
+	\hline
+	\textbf{3} & Sprint 3: History, AiChatbot \& Reports &
+	  As a user, I want to interact with a smart digital assistant to ask follow-up questions about my screening results. & Medium \\
+	\cline{3-4}
+	 & & As a user, I want to generate and download a comprehensive PDF report of my scan for my medical records. & Medium \\
+	\cline{3-4}
+	 & & As a user, I want to view my scan history and delete my personal records if needed. & Medium \\
+	\hline
+	\textbf{4} & Sprint 4: Admin Dashboard \& Data Export &
+	  As an admin, I want a centralized dashboard to monitor system activity, usage trends, and platform health. & Medium \\
+	\cline{3-4}
+	 & & As an admin, I want to manage registered users & Medium  \\
+	\cline{3-4}
+	 & & As an admin, I want to export database for backup  and dataset for future training . & Low \\
+	\hline
+		\caption{\textit{Product Backlog}}\label{tab:backlog}
+	\end{longtable}
+	}
+	
+	
+	
+	% ──────────────────────────────────────────────
+	%  1.8  CONCLUSION
+	% ──────────────────────────────────────────────
+	\section{Conclusion}
+	
+	In this chapter, the professional context and requirements of DermaAI were defined, justifying the choice of the SCRUM methodology. The established functional specifications and project planning provide a clear roadmap for the upcoming development. The next chapter will present the proposed architecture and technical choices retained for the system.

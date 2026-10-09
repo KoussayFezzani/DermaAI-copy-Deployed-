@@ -1,0 +1,256 @@
+\setlength{\emergencystretch}{3em}
+
+% ============================================================
+%  CHAPTER 6 — SPRINT 4
+% ============================================================
+
+\chapter[Chapter 6: Sprint 4 — Admin Dashboard \& Data Export]{Chapter 6: Sprint 4 — Admin Dashboard\\[12pt]
+	\& Data Export}
+\begin{center}
+	\includegraphics[width=0.85\textwidth, keepaspectratio]{chap6_cover.png}
+\end{center}
+
+\newpage
+
+% ============================================================
+\section{Introduction}
+% ============================================================
+This chapter presents the final development sprint, focusing on the platform's administrative infrastructure and data security. It covers the development of a real-time metrics dashboard, a secure user management interface, and a robust data anonymization pipeline for research exports. The design, Development, and security architecture of these features are documented below.
+
+% ============================================================
+\section{Objectives}
+% ============================================================
+The main objectives established for Sprint 4 are:
+\begin{itemize}
+	\item Develop an Admin Dashboard to visualize real-time platform statistics (active users, total scans, diagnosis distribution).
+	\item Implement a secure user management interface allowing administrators to view, update, and remove accounts.
+	\item Create a full database backup endpoint to export JSON configurations of the entire system.
+	\item Develop an anonymized dataset export tool to safely extract scanning metrics for future AI model retraining without exposing Personally Identifiable Information (PII).
+\end{itemize}
+
+% ============================================================
+\section{Design}
+% ============================================================
+This section outlines the functional design of the administrative operations.
+
+% ────────────────────────────────────────────────────────────
+\subsection{Use-Cases Modeling}
+% ────────────────────────────────────────────────────────────
+Figure~\ref{fig:sprint4_usecase} illustrates the specific administrative use cases, which are strictly isolated from standard user operations.
+
+\begin{figure}[H]
+	\centering
+	\optionalimage[0.70\textwidth]{chap_6/images/use case sp4.png}{Sprint 4 Use-Cases Diagram}
+	\caption{\textit{Use-Cases Diagram for Sprint 4 (Admin Actor)}}
+	\label{fig:sprint4_usecase}
+\end{figure}
+
+% ············································
+\subsubsection{Export System Data}
+% ············································
+\begin{table}[H]
+	\centering
+	\footnotesize
+	\renewcommand{\arraystretch}{1.5}
+	\begin{tabular}{|p{3cm}|p{11.5cm}|}
+		\hline
+		\rowcolor[HTML]{1F3864}
+		{\color{white}\textbf{Use Case}} & {\color{white}\textbf{Export System Data}} \\
+		\hline
+		\textbf{Actor} & Administrator \\
+		\hline
+		\textbf{Precondition} & The admin is securely authenticated and possesses the "admin" JWT role claim. \\
+		\hline
+		\textbf{Postcondition} & The system securely generates and downloads a JSON export file. \\
+		\hline
+		\textbf{Nominal Scenario} & 
+		1. The administrator navigates to the Exports tab.\newline
+		2. The admin selects either "Full Backup" or "Anonymized Research Export".\newline
+		3. The backend executes a MongoDB aggregation pipeline.\newline
+		4. The system formats the results into a downloadable JSON file.\newline
+		5. The admin downloads the file successfully. \\
+		\hline
+		\textbf{Alternative} & 
+		If a standard user attempts to call the export API endpoints, the system immediately returns a 403 Unauthorized error and denies access. \\
+		\hline
+	\end{tabular}
+	\caption{\textit{Textual Description: Export System Data}}
+\end{table}
+
+% ────────────────────────────────────────────────────────────
+\subsection{Activity Diagram}
+% ────────────────────────────────────────────────────────────
+Figure~\ref{fig:sprint4_activity} presents the activity diagram modeling the administrative operations.
+
+\begin{figure}[H]
+	\centering
+	\optionalimage[0.82\textwidth]{chap_6/images/activiy diagram sp4.png}{Activity Diagram for Sprint 4}
+	\caption{\textit{Activity Diagram for Sprint 4}}
+	\label{fig:sprint4_activity}
+\end{figure}
+
+% ────────────────────────────────────────────────────────────
+\subsection{Class Diagram}
+% ────────────────────────────────────────────────────────────
+Figure~\ref{fig:sprint4_class} shows the conceptual class diagram for the entities managed during this sprint.
+
+\begin{figure}[H]
+	\centering
+	\optionalimage[0.55\textwidth]{chap_6/images/class sp4.png}{Sprint 4 Class Diagram}
+	\caption{\textit{Conceptual Class Diagram for Sprint 4}}
+	\label{fig:sprint4_class}
+\end{figure}
+
+% ────────────────────────────────────────────────────────────
+\subsection{Sequence Diagram}
+% ────────────────────────────────────────────────────────────
+Figure~\ref{fig:sprint4_seq_admin} details the flow of data when an administrator requests system statistics for the dashboard.
+
+\begin{figure}[H]
+	\centering
+	\optionalimage[0.85\textwidth]{chap_6/images/seq sp4 (1).png}{Admin Dashboard Sequence Diagram}
+	\caption{\textit{Sequence Diagram: Admin Dashboard Visualization}}
+	\label{fig:sprint4_seq_admin}
+\end{figure}
+
+% ============================================================
+\section{Tasks}
+% ============================================================
+The specific development tasks required to fulfill the administrative objectives are documented in the Sprint 4 backlog.
+
+{\setlength{\tabcolsep}{4pt}%
+	\renewcommand{\arraystretch}{1.35}%
+	\small
+	\begin{longtable}{|>{\centering\arraybackslash}p{0.8cm}|>{\raggedright\arraybackslash}p{4.5cm}|>{\raggedright\arraybackslash}p{6.8cm}|}
+		\hline
+		\rowcolor[HTML]{1F3864}
+		{\color{white}\textbf{ID}} &
+		{\color{white}\textbf{User Story}} &
+		{\color{white}\textbf{Task Description}} \\
+		\hline
+		\endfirsthead
+		\hline
+		\endhead
+		\hline
+		\endfoot
+		\hline
+		\endlastfoot
+		
+		\textbf{11} & As an admin, I want a centralized dashboard to monitor system activity, usage trends, and platform health. & Develop the \texttt{/stats} backend endpoint utilizing MongoDB aggregations to gather platform metrics. \\
+		\cline{3-3}
+		& & Design the React Admin Dashboard overview using charting libraries to visualize data. \\
+		\hline
+		
+		\textbf{12} & As an admin, I want to manage registered users. & Develop the User Management UI (View, Edit, Delete modals). \\
+		\cline{3-3}
+		& & Implement the secure backend CRUD endpoints with strict admin role validation. \\
+		\hline
+		
+		\textbf{13} & As an admin, I want to export the database for backup and dataset for future training. & Implement the full database backup generation logic in Flask. \\
+		\cline{3-3}
+		& & Implement the MongoDB projection pipeline to strip PII and export anonymized research data. \\
+		\hline
+		\caption{\textit{Sprint 4 Backlog}}\label{tab:sprint4_backlog}
+	\end{longtable}
+}
+
+% ============================================================
+\section{Development}
+% ============================================================
+This section presents the final administrative interfaces and verifies the security constraints applied to the backend API.
+
+% ────────────────────────────────────────────────────────────
+\subsection{User Interfaces}
+% ────────────────────────────────────────────────────────────
+
+\paragraph{Admin Overview Dashboard}
+The primary dashboard provides a real-time overview of platform health, showing system statuses (Database, Model, Scraper connectivity), weekly scanning activity charts, and the overall distribution of identified diseases across the platform. Figure~\ref{fig:ui_admin_overview} presents the administrative overview dashboard.
+
+\begin{figure}[H]
+	\centering
+	\optionalimage[0.85\textwidth]{chap_6/images/dashboard.png}{Admin Overview Interface}
+	\caption{\textit{Administrative Overview Dashboard}}
+	\label{fig:ui_admin_overview}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\optionalimage[0.85\textwidth]{chap_6/images/system_health.png}{System Health Overview}
+	\caption{\textit{System Health and Status Dashboard}}
+	\label{fig:ui_system_health}
+\end{figure}
+
+\paragraph{User Management and Export Interfaces}
+The platform allows administrators to perform critical operations via dedicated tabs. The User Management tab features a paginated data table to directly update user credentials or ban accounts. The Exports tab securely generates and downloads the JSON backup files. Figure~\ref{fig:ui_admin_users} shows the user management and export interface.
+
+\begin{figure}[H]
+	\centering
+	\optionalimage[0.85\textwidth]{chap_6/images/user_directory.png}{Admin Users Interface}
+	\caption{\textit{User Directory and Role Management Interface}}
+	\label{fig:ui_admin_users}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\optionalimage[0.85\textwidth]{chap_6/images/export.png}{Admin Exports Interface}
+	\caption{\textit{Database Export Configuration Interface}}
+	\label{fig:ui_admin_exports}
+\end{figure}
+
+\paragraph{News and Blog Interface}
+The platform also includes a dynamic blog component that fetches and displays the latest dermatological news, creating an engaging content hub for users to stay informed on health trends. Figure~\ref{fig:ui_blog_admin} presents the blog interface.
+
+\begin{figure}[H]
+	\centering
+	\optionalimage[0.85\textwidth]{chap_6/images/blog.png}{Blog Interface}
+	\caption{\textit{Dermatology News and Blog Interface}}
+	\label{fig:ui_blog_admin}
+\end{figure}
+
+% ────────────────────────────────────────────────────────────
+\subsection{API Testing \& Security Validation}
+% ────────────────────────────────────────────────────────────
+Because administrative functions handle highly sensitive data, testing focused on security. The \texttt{@admin\_required} Python decorator was verified using Postman. When a standard user (lacking the ``admin'' role in their JWT payload) attempts to access \texttt{/api/admin/users} or \texttt{/api/admin/backup}, the server correctly intercepts the request and returns a 403 Forbidden status, ensuring the system cannot be compromised via privilege escalation. Figure~\ref{fig:api_admin} illustrates this security validation.
+
+\begin{figure}[H]
+	\centering
+	\optionalimage[0.85\textwidth]{chap_6/images/api_admin.png}{Postman Admin Validation}
+	\caption{\textit{Postman Test: Admin Privilege Enforcement}}
+	\label{fig:api_admin}
+\end{figure}
+
+% ============================================================
+\section{Administrative Control System}
+% ============================================================
+To finalize the platform's lifecycle management, specific backend architectures were engineered to handle data scaling, privacy, and system security.
+
+% ────────────────────────────────────────────────────────────
+\subsection{Role-Based Access Control (RBAC)}
+% ────────────────────────────────────────────────────────────
+Platform security relies on JWT (JSON Web Token) payload claims. During the authentication phase, the system verifies the user's role against the MongoDB database. If the role is defined as 'admin', this claim is cryptographically signed into the token. The backend Python routes use the \texttt{@admin\_required} wrapper to actively decode and inspect this signature on every protected request, creating a robust, stateless security barrier around the administrative API.
+
+% ────────────────────────────────────────────────────────────
+\subsection{Data Anonymization Pipeline}
+% ────────────────────────────────────────────────────────────
+The export functionality was split into two distinct mechanisms to serve different operational needs:
+\begin{itemize}
+	\item \textbf{Full Backup:} Dumps exact, raw JSON representations of the \texttt{users} and \texttt{history} collections. This is used strictly by administrators for emergency disaster recovery.
+	\item \textbf{Research Dataset Export:} Built specifically to fuel future iterations of the deep learning model. The system uses a MongoDB Aggregation Pipeline (\texttt{\$project}) to automatically strip all Personally Identifiable Information (PII) before the file is generated. It actively removes the \texttt{user\_email}, system \texttt{\_id}, and localized \texttt{image\_url}, exporting only the raw medical metrics (diagnosis, confidence levels, body part, and timestamp). This ensures medical data compliance while providing high-quality retraining data.
+\end{itemize}
+
+% ============================================================
+\section{Progress Tracking}
+% ============================================================
+Figure~\ref{fig:trello_sprint4} highlights the Trello Kanban board upon completion of the final sprint, signifying the end of active development for the core DermaAI platform.
+
+\begin{figure}[H]
+	\centering
+	\optionalimage[0.40\textwidth]{chap_6/images/trello_sprint4.png}{Trello Sprint 4}
+	\caption{\textit{Trello Board at the End of Sprint 4}}
+	\label{fig:trello_sprint4}
+\end{figure}
+
+% ============================================================
+\section{Conclusion}
+% ============================================================
+Sprint 4 successfully established the critical administrative infrastructure required to monitor and secure the DermaAI platform. By providing real-time visual insights, direct user management, and anonymized data export capabilities, the system is fully prepared for production deployment. This marks the end of the development phase, resulting in a cohesive and secure medical application.
