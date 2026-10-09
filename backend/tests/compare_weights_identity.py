@@ -14,11 +14,35 @@ def compare_models():
     print(" COMPARING ORIGINAL .H5 WEIGHTS VS SAVED .KERAS   ")
     print("==================================================")
     
-    h5_path = r"c:\Users\User\Desktop\Xception-skin disease-83.83.h5"
-    keras_path = r"backend\saved_models\skin_lesion_model.keras"
-    
-    assert os.path.exists(h5_path), f"Original h5 file missing at {h5_path}"
-    assert os.path.exists(keras_path), f"Saved keras file missing at {keras_path}"
+    h5_path = os.environ.get('ORIGINAL_H5_PATH')
+    if not h5_path or not os.path.exists(h5_path):
+        for candidate in [
+            'backend/saved_models/skin_lesion_model.h5',
+            'saved_models/skin_lesion_model.h5',
+            os.path.join(os.path.expanduser('~'), 'Desktop', 'Xception-skin disease-83.83.h5')
+        ]:
+            if os.path.exists(candidate):
+                h5_path = candidate
+                break
+
+    keras_path = os.environ.get('KERAS_MODEL_PATH')
+    if not keras_path or not os.path.exists(keras_path):
+        for candidate in [
+            'backend/saved_models/skin_lesion_model.keras',
+            'saved_models/skin_lesion_model.keras'
+        ]:
+            if os.path.exists(candidate):
+                keras_path = candidate
+                break
+
+    if not keras_path or not os.path.exists(keras_path):
+        print(f"[ERROR] Target .keras model artifact not found. Please build or place it in saved_models.")
+        sys.exit(1)
+
+    if not h5_path or not os.path.exists(h5_path):
+        print(f"[SKIP] Original training .h5 checkpoint not found on this machine.")
+        print(f"       To run bitwise model comparison, set ORIGINAL_H5_PATH=<path_to_weights.h5>.")
+        return
     
     print("Loading original weights into reconstructed architecture...")
     m_orig = build_model(7, (480, 480, 3))

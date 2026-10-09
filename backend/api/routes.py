@@ -257,9 +257,25 @@ def delete_history():
     if history_col is None:
         return jsonify({'error': 'Database connection failed'}), 503
         
-    # Note: We might want to loop and delete files here too, but for safety 
-    # and simplicity we'll just wipe the DB entries if mass-cleaning.
+    # Consistency & Privacy: Clean up physical image files associated with all user scans
+    scans = list(history_col.find({'user_email': current_user_email}))
+    base_dir = os.path.dirname(os.path.dirname(__file__))
+    deleted_files = 0
+    for scan in scans:
+        img_url = scan.get('image_url')
+        if img_url and img_url.startswith('/uploads/'):
+            relative_path = img_url.lstrip('/')
+            file_to_delete = os.path.join(base_dir, relative_path)
+            if os.path.exists(file_to_delete):
+                try:
+                    os.remove(file_to_delete)
+                    deleted_files += 1
+                except Exception as file_err:
+                    print(f"Warning: could not delete file {file_to_delete}: {file_err}")
+
     result = history_col.delete_many({'user_email': current_user_email})
-    return jsonify({'message': f'Deleted {result.deleted_count} history records'}), 200
+    return jsonify({
+        'message': f'Deleted {result.deleted_count} history records and {deleted_files} associated image files'
+    }), 200
 
 

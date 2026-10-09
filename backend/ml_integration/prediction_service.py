@@ -37,53 +37,43 @@ class PredictionService:
     @classmethod
     def load_model(cls):
         if cls._model is None:
-            # Try to load the full model first (.keras or .h5)
-            # Try multiple base folders depending on where the script is run from
-            possible_bases = ['backend', '']
-            model_filenames = ['skin_lesion_model.keras', 'skin_lesion_model.h5']
-            
-            full_model_path = None
-            for base in possible_bases:
-                for fname in model_filenames:
-                    path = os.path.join(base, 'saved_models', fname) if base else os.path.join('saved_models', fname)
-                    if os.path.exists(path):
-                        full_model_path = path
-                        break
-                if full_model_path: break
+            # Check explicit environment override first
+            env_model_path = os.environ.get('MODEL_PATH')
+            if env_model_path and os.path.exists(env_model_path):
+                print(f"Loading model from MODEL_PATH={env_model_path}...")
+                cls._model = keras.models.load_model(env_model_path, compile=False)
+                return cls._model
 
-            if full_model_path:
-                print(f"Loading full model from {full_model_path}...")
-                try:
-                    cls._model = keras.models.load_model(full_model_path, compile=False)
-                    print("Model loaded successfully.")
-                except Exception as e:
-                    print(f"Failed to load full model due to error: {e}. Falling back to manual architecture + weights...")
-                    cls._model = build_model(num_classes=len(CLASSES), input_shape=(480, 480, 3))
-                    cls._model.load_weights(full_model_path)
-                    print("Fell back to loading weights into built architecture.")
-            else:
-                # Fallback: check Desktop model or saved_models weights
-                desktop_h5 = r"C:\Users\User\Desktop\Xception-skin disease-83.83.h5"
-                print("Model not found in saved_models. Checking fallbacks...")
+            # Resolve saved_models relative to backend directory or working directory
+            backend_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+            candidate_paths = [
+                os.path.join(backend_dir, 'saved_models', 'skin_lesion_model.keras'),
+                os.path.join(backend_dir, 'saved_models', 'skin_lesion_model.h5'),
+                os.path.join('saved_models', 'skin_lesion_model.keras'),
+                os.path.join('backend', 'saved_models', 'skin_lesion_model.keras')
+            ]
+            
+            model_path = None
+            for p in candidate_paths:
+                if os.path.exists(p):
+                    model_path = p
+                    break
+
+            if not model_path:
+                raise RuntimeError(
+                    "Model artifact not found. Please place 'skin_lesion_model.keras' "
+                    "in 'backend/saved_models/' or set the MODEL_PATH environment variable."
+                )
+
+            print(f"Loading full model from {model_path}...")
+            try:
+                cls._model = keras.models.load_model(model_path, compile=False)
+                print("Model loaded successfully.")
+            except Exception as e:
+                print(f"Failed to load full model via load_model: {e}. Attempting architecture rebuild + weight load...")
                 cls._model = build_model(num_classes=len(CLASSES), input_shape=(480, 480, 3))
-                
-                weights_path = None
-                if os.path.exists(desktop_h5):
-                    weights_path = desktop_h5
-                else:
-                    for base in possible_bases:
-                        for fname in ['skin_lesion_model.weights.h5', 'xception_weights.h5']:
-                            wp = os.path.join(base, 'saved_models', fname) if base else os.path.join('saved_models', fname)
-                            if os.path.exists(wp):
-                                weights_path = wp
-                                break
-                        if weights_path: break
-                
-                if weights_path:
-                    cls._model.load_weights(weights_path)
-                    print(f"Model weights loaded from {weights_path}.")
-                else:
-                    raise RuntimeError("Model not loaded. Please place the model weights in saved_models.")
+                cls._model.load_weights(model_path)
+                print("Rebuilt architecture with loaded weights successfully.")
                     
         return cls._model
 

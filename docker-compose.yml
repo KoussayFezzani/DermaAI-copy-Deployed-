@@ -1,13 +1,14 @@
 version: '3.8'
 
 services:
-  # MongoDB Database Service
+  # MongoDB Database Service (Isolated to internal container network)
   mongodb:
     image: mongo:7.0
     container_name: dermaai_mongodb
     restart: unless-stopped
-    ports:
-      - "27017:27017"
+    # Security: Do not expose port 27017 to the public host network; accessible only via Docker bridge network
+    expose:
+      - "27017"
     environment:
       MONGO_INITDB_DATABASE: skin_lesion_db
     volumes:
@@ -20,12 +21,14 @@ services:
       dockerfile: Dockerfile
     container_name: dermaai_backend
     restart: unless-stopped
-    ports:
-      - "5000:5000"
+    expose:
+      - "5000"
     environment:
       MONGO_URI: mongodb://mongodb:27017/skin_lesion_db
-      JWT_SECRET_KEY: ${JWT_SECRET_KEY:-dermaai-production-secret-key-change-in-env}
-      CORS_ORIGINS: http://localhost,http://localhost:80,http://localhost:5173
+      # Security: Fail closed if JWT_SECRET_KEY is missing (no insecure fallback default)
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY:?CRITICAL: JWT_SECRET_KEY is mandatory and must be set in .env}
+      CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost,http://localhost:80,http://localhost:5173}
+      GUNICORN_WORKERS: ${GUNICORN_WORKERS:-1}
       FLASK_ENV: production
       FLASK_DEBUG: 0
       PORT: 5000
@@ -35,7 +38,7 @@ services:
       - backend_uploads:/app/uploads
       - ./backend/saved_models:/app/saved_models:ro
 
-  # Frontend SPA Service (Nginx)
+  # Frontend SPA Service (Nginx Reverse Proxy)
   frontend:
     build:
       context: ./frontend
