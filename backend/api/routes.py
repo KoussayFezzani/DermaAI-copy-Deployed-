@@ -8,15 +8,12 @@ from bson import ObjectId
 from ml_integration.prediction_service import PredictionService
 from api.db import get_history_collection
 from api.limiter import limiter
+from api.file_utils import safe_delete_upload_file, UPLOAD_FOLDER
 
 api_bp = Blueprint('api', __name__)
 
 from PIL import Image
 
-
-# Configure upload folder (Simulating Cloud Storage)
-UPLOAD_FOLDER = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'uploads')
-os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 
 def allowed_file(filename):
@@ -226,28 +223,26 @@ def delete_scan(scan_id):
         return jsonify({'error': 'Database connection failed'}), 503
         
     try:
-        # Find record first to get image path
+        # Find record first to get image path and verify user ownership
         record = history_col.find_one({'_id': ObjectId(scan_id), 'user_email': current_user_email})
         if not record:
             return jsonify({'error': 'Record not found or access denied'}), 404
             
-        # Physical File Deletion
-        if 'image_url' in record:
-            relative_path = record['image_url'].lstrip('/') # uploads/...
-            # Convert URL path to system path
-            # Assuming image_url is /uploads/... and PROJECT_ROOT/backend/uploads exists
-            base_dir = os.path.dirname(os.path.dirname(__file__))
-            file_to_delete = os.path.join(base_dir, relative_path)
-            
-            if os.path.exists(file_to_delete):
-                os.remove(file_to_delete)
+        # 1. Database Removal First: If DB operation fails, physical file remains intact
+        del_result = history_col.delete_one({'_id': ObjectId(scan_id), 'user_email': current_user_email})
+        if del_result.deleted_count == 0:
+            return jsonify({'error': 'Database deletion failed'}), 500
         
-        # Database Removal
-        history_col.delete_one({'_id': ObjectId(scan_id)})
+        # 2. Confined File Deletion: Safely delete physical file strictly within UPLOAD_FOLDER
+        image_url = record.get('image_url')
+        file_deleted = safe_delete_upload_file(image_url)
         
-        return jsonify({'message': 'Scan deleted successfully'}), 200
+        return jsonify({
+            'message': 'Scan deleted successfully',
+            'file_deleted': file_deleted
+        }), 200
     except Exception as e:
-        return jsonify({'error': str(e)}), 400
+        return jsonify({'error': 'Failed to delete scan'}), 500
 
 @api_bp.route('/history', methods=['DELETE'])
 @jwt_required()
@@ -257,25 +252,23 @@ def delete_history():
     if history_col is None:
         return jsonify({'error': 'Database connection failed'}), 503
         
-    # Consistency & Privacy: Clean up physical image files associated with all user scans
-    scans = list(history_col.find({'user_email': current_user_email}))
-    base_dir = os.path.dirname(os.path.dirname(__file__))
-    deleted_files = 0
-    for scan in scans:
-        img_url = scan.get('image_url')
-        if img_url and img_url.startswith('/uploads/'):
-            relative_path = img_url.lstrip('/')
-            file_to_delete = os.path.join(base_dir, relative_path)
-            if os.path.exists(file_to_delete):
-                try:
-                    os.remove(file_to_delete)
-                    deleted_files += 1
-                except Exception as file_err:
-                    print(f"Warning: could not delete file {file_to_delete}: {file_err}")
+    try:
+        # Fetch all user scans before deletion to record target files
+        scans = list(history_col.find({'user_email': current_user_email}, {'image_url': 1}))
+        
+        # 1. Database Bulk Removal First
+        result = history_col.delete_many({'user_email': current_user_email})
+        
+        # 2. Confined File Cleanup: Safely purge each associated file strictly within UPLOAD_FOLDER
+        deleted_files = 0
+        for scan in scans:
+            if safe_delete_upload_file(scan.get('image_url')):
+                deleted_files += 1
 
-    result = history_col.delete_many({'user_email': current_user_email})
-    return jsonify({
-        'message': f'Deleted {result.deleted_count} history records and {deleted_files} associated image files'
-    }), 200
+        return jsonify({
+            'message': f'Deleted {result.deleted_count} history records and {deleted_files} associated image files'
+        }), 200
+    except Exception as e:
+        return jsonify({'error': 'Failed to clear history'}), 500
 
 

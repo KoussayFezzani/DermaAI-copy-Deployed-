@@ -190,27 +190,23 @@ def delete_account():
     if users_col is None:
         return jsonify({'error': 'Database connection failed'}), 503
     
-    # GDPR & Data Hygiene: Clean up all user scans and physical files
     from api.db import get_history_collection
-    import os
+    from api.file_utils import safe_delete_upload_file
     history_col = get_history_collection()
+    
+    # 1. Fetch user scans before deletion to track target files
+    scans = list(history_col.find({'user_email': current_user_email}, {'image_url': 1})) if history_col is not None else []
+    
+    # 2. Database Removal First
+    result = users_col.delete_one({'email': current_user_email})
+    if result.deleted_count == 0:
+        return jsonify({'error': 'User not found'}), 404
+        
     if history_col is not None:
-        scans = list(history_col.find({'user_email': current_user_email}))
-        base_dir = os.path.dirname(os.path.dirname(__file__))
-        for scan in scans:
-            img_url = scan.get('image_url')
-            if img_url and img_url.startswith('/uploads/'):
-                relative_path = img_url.lstrip('/')
-                file_to_delete = os.path.join(base_dir, relative_path)
-                if os.path.exists(file_to_delete):
-                    try:
-                        os.remove(file_to_delete)
-                    except Exception:
-                        pass
         history_col.delete_many({'user_email': current_user_email})
 
-    result = users_col.delete_one({'email': current_user_email})
-    if result.deleted_count == 1:
-        return jsonify({'message': 'Account and all associated clinical data deleted successfully'}), 200
-    else:
-        return jsonify({'error': 'User not found'}), 404
+    # 3. Confined Physical File Cleanup
+    for scan in scans:
+        safe_delete_upload_file(scan.get('image_url'))
+
+    return jsonify({'message': 'Account and all associated clinical data deleted successfully'}), 200
